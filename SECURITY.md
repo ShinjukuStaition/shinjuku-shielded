@@ -1,17 +1,11 @@
-<!--
-DRAFT FOR OWNER REVIEW. PRIVATE REPOSITORY. NOT PUBLISHED.
-[OWNER: ...] = a decision or value the owner must give before this repository
-goes public.
--->
-
 # Security
 
 ## Report a vulnerability
 
-Send the report to [OWNER: security contact address]. Encrypt it with our
-PGP key [OWNER: key fingerprint and where to get the key. One option: the
-Administrator key that signs the o-board announcements,
-`B136F0B026AF91667C56297903C2725212449869`].
+Report it privately through GitHub: open the **Security** tab of this
+repository, then **Report a vulnerability**. To encrypt details, use our PGP
+key `B136F0B026AF91667C56297903C2725212449869` (the Administrator key that
+signs the announcements on our onion board).
 
 Do not open a public issue for a vulnerability. Do not post it on our board
 or on social media until we have fixed it or 90 days have passed, whichever
@@ -24,13 +18,13 @@ Put in the report:
 - what an attacker could do with it (move funds, link a payer to a payment,
   learn an amount, stop exits, and so on).
 
-We answer within [OWNER: number] days.
+We read every report.
 
 ## In scope
 
 - The wallet file `shinjuku-wallet.mjs`, every published version.
-- The facilitator and relayer routes on `https://shinjukustaition.com`, its
-  onion service, and `https://staging.shinjukustaition.com`.
+- The facilitator and relayer routes on `https://shinjukustaition.com` and
+  its onion service.
 - Privacy defects: anything that links a payer to a payment, or shows an
   amount, more than the README says.
 
@@ -51,9 +45,8 @@ will not take legal action against you for that research.
 
 ## Protect yourself
 
-- Download the wallet only from `https://shinjukustaition.com/wallet/`, our
-  onion service, or (for the staging facilitator)
-  `https://staging.shinjukustaition.com/wallet/`. We never send the wallet file by email or direct
+- Download the wallet only from `https://shinjukustaition.com/wallet/` or
+  our onion service. We never send the wallet file by email or direct
   message.
 - Check the SHA-256 before every first run (see the README). Compare the
   hash on our website with the hash in this repository.

@@ -1,16 +1,3 @@
-<!--
-DRAFT FOR OWNER REVIEW. PRIVATE REPOSITORY. NOT PUBLISHED.
-Markers: [OWNER: ...] = a decision or value the owner must give before this
-         repository goes public.
-         [RELEASE: ...] = a value that the production release fills in (at the
-         production push).
-Sources (re-check each claim on the day of publication):
-docs/x402/11-evidence-and-release-claims.md and docs/x402/README.md (carbon-road),
-the staging /skill.md section 7b (read 2026-10-02 04:00Z),
-the served LICENSE.txt and THIRD_PARTY_NOTICES.txt of release 68aac3c1,
-Documents/Crypto/demo-evidence-20261002/D3-claims.md.
--->
-
 # Shinjuku Shielded
 
 Shinjuku Shielded is a privacy-only x402 payment facilitator on Solana.
@@ -37,10 +24,10 @@ chain does not show who paid.
   facilitator settles it.** First fill a pocket (`pocket fill`). Then `pay`
   pays the seller from that pocket. Our relayer sends your deposit and the
   private exit into the pocket. The seller's own facilitator settles the last
-  step, the payment from the pocket to the seller. On 2026-10-02, through our
-  staging facilitator, this paid two such endpoints with real USDC on Solana
-  mainnet: one that Coinbase's facilitator settles and one that PayAI's
-  facilitator settles.
+  step, the payment from the pocket to the seller. On 2026-10-02 a test paid
+  two such endpoints with real USDC on Solana mainnet: one that Coinbase's
+  facilitator settles and one that PayAI's facilitator settles. This path
+  comes with the next wallet release.
 
 The 3D market game [Shinjuku Undermarket](https://shinjukustaition.com) is
 our first customer and our live demo.
@@ -51,36 +38,27 @@ and no wallet source code.
 
 ## Status
 
-[OWNER: confirm each line on the day of publication.]
-
 - Hidden amounts on mainnet: live, as a capped alpha.
 - Pocket payments to sellers that settle through our facilitator: live.
-- Pocket payments to any Solana x402 `exact` endpoint that takes USDC: live on
-  staging since 2026-10-02; on production with the next production release.
+- Pocket payments to any Solana x402 `exact` endpoint that takes USDC: tested
+  with real USDC on mainnet on 2026-10-02; comes with the next wallet release.
 - The wallet file and its proof tools, served from our site with SHA-256
-  hashes: live on staging; on production with the next production release.
+  hashes: comes with the next wallet release.
 - The production key ceremony: scheduled.
 - Operator-blind keys (our key service in a secure enclave): in progress.
 - Independent audit: none yet.
 
 ## Releases
 
-Each release is one file, `shinjuku-wallet.mjs`. Our website serves the file
-and its hash. This repository is a second, separate place for the hash.
+Each release is one file, `shinjuku-wallet.mjs`, and a set of proof tools.
+Our website serves the files and their SHA-256 hashes at
+`https://shinjukustaition.com/wallet/<sha8>/` and
+`https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
+second, separate place for those hashes: each release adds its row here.
 
-| Network | Release | File | SHA-256 | Bytes |
+| Release | Wallet file SHA-256 | Bytes | Proof tools | SHA-256 of the proof-tools file list |
 |---|---|---|---|---|
-| Solana mainnet, production facilitator | [RELEASE: sha8] | `https://shinjukustaition.com/wallet/[RELEASE: sha8]/shinjuku-wallet.mjs` | `[RELEASE: sha256]` | [RELEASE: bytes] |
-| Solana mainnet, staging facilitator | `68aac3c1` | `https://staging.shinjukustaition.com/wallet/68aac3c1/shinjuku-wallet.mjs` | `68aac3c1f7bcf9e21c44637c5db4cef3ad8ed52732cd5634f0884d1417a78b1d` | 9,476,013 |
-
-[OWNER: keep the staging row in the public README, or show production only?]
-
-The money commands also need the proof tools of the same facilitator:
-
-| Network | Proof tools | File list | SHA-256 of the file list |
-|---|---|---|---|
-| production | [RELEASE: sha8] | `https://shinjukustaition.com/proof-tools/[RELEASE: sha8]/SHA256SUMS` | `[RELEASE: sha256]` |
-| staging | `14c6be43` | `https://staging.shinjukustaition.com/proof-tools/14c6be43/SHA256SUMS` | `14c6be439bc364a0cb8503de53293c3a7c23c40fe3d54a0ef3a896a36a026bca` |
+| The next wallet release adds the first row. | | | | |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -106,12 +84,9 @@ curl --socks5-hostname 127.0.0.1:9050 -fsSLO \
   http://2kfhlfuyuwvhmibjrpxqsg4nrbcxasjgjq7kmnfzgfwzptkhhznz3dad.onion/wallet/<sha8>/shinjuku-wallet.mjs
 ```
 
-[OWNER: the onion serves `/wallet/` only after the production release. Check
-this command on that day.]
-
 ### 2. Check the SHA-256
 
-Compare the file with the hash in the table above. Go on only when the check
+Compare the file with the hash in the Releases table above. Go on only when the check
 prints `OK`. On any other result, delete the file and do not run it.
 
 Linux:
@@ -368,10 +343,6 @@ Each wallet file comes with this notice (`LICENSE.txt` beside the file):
 `THIRD_PARTY_NOTICES.txt` beside each release lists every open-source
 component inside the file, with its license text. One of them,
 `rpc-websockets`, is under LGPL-3.0-only.
-
-[OWNER: you ruled out a license text. This repository therefore has no
-LICENSE file, and GitHub shows "no license" (all rights reserved by default).
-Confirm that this is what you want for the public repository.]
 
 ## Security
 
