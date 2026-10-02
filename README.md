@@ -27,7 +27,7 @@ chain does not show who paid.
   step, the payment from the pocket to the seller. On 2026-10-02 a test paid
   two such endpoints with real USDC on Solana mainnet: one that Coinbase's
   facilitator settles and one that PayAI's facilitator settles. This path
-  comes with the next wallet release.
+  needs wallet release `68aac3c1` or later.
 
 The 3D market game [Shinjuku Undermarket](https://shinjukustaition.com) is
 our first customer and our live demo.
@@ -40,10 +40,10 @@ and no wallet source code.
 
 - Hidden amounts on mainnet: live, as a capped alpha.
 - Pocket payments to sellers that settle through our facilitator: live.
-- Pocket payments to any Solana x402 `exact` endpoint that takes USDC: tested
-  with real USDC on mainnet on 2026-10-02; comes with the next wallet release.
-- The wallet file and its proof tools, served from our site with SHA-256
-  hashes: comes with the next wallet release.
+- Pocket payments to any Solana x402 `exact` endpoint that takes USDC: live
+  (wallet release `68aac3c1` and later).
+- The wallet file and its proof tools, served from our site and our onion
+  service with SHA-256 hashes: live.
 - The production key ceremony: scheduled.
 - Operator-blind keys (our key service in a secure enclave): in progress.
 - Independent audit: none yet.
@@ -56,9 +56,9 @@ Our website serves the files and their SHA-256 hashes at
 `https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
 second, separate place for those hashes: each release adds its row here.
 
-| Release | Wallet file SHA-256 | Bytes | Proof tools | SHA-256 of the proof-tools file list |
-|---|---|---|---|---|
-| The next wallet release adds the first row. | | | | |
+| Released (UTC) | Wallet release | Wallet file SHA-256 | Bytes | Proof tools | SHA-256 of the proof-tools file list | Proof-tools files |
+|---|---|---|---|---|---|---|
+| 2026-10-02 | [`68aac3c1`](https://shinjukustaition.com/wallet/68aac3c1/shinjuku-wallet.mjs) | `68aac3c1f7bcf9e21c44637c5db4cef3ad8ed52732cd5634f0884d1417a78b1d` | 9,476,013 | [`864898cb`](https://shinjukustaition.com/proof-tools/864898cb/SHA256SUMS) | `864898cb1a7db74c54bc567307795ba154f2b8ed70e36a1336bf8c6c06c5c702` | 29 (183,830,695 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
