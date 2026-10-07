@@ -44,7 +44,8 @@ and no wallet source code.
   (wallet release `68aac3c1` and later).
 - The wallet file and its proof tools, served from our site and our onion
   service with SHA-256 hashes: live.
-- The production key ceremony: scheduled.
+- Key ceremonies: single-operator setup ceremony for the V0b keys done
+  (2026-10-06); a multi-party ceremony: not yet.
 - Operator-blind keys (our key service in a secure enclave): in progress.
 - Independent audit: none yet.
 
