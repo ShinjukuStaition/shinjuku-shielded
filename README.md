@@ -1,3 +1,13 @@
+<p align="center"><img src="assets/banner.png" alt="Shinjuku Shielded: private x402 payments on Solana" width="100%"></p>
+
+<p align="center">
+<img alt="Solana mainnet" src="https://img.shields.io/badge/Solana-mainnet-D22B23?style=flat-square&labelColor=0C0707">
+<img alt="x402 facilitator" src="https://img.shields.io/badge/x402-private%20facilitator-D22B23?style=flat-square&labelColor=0C0707">
+<img alt="Self-custody" src="https://img.shields.io/badge/keys-self--custody-DEB868?style=flat-square&labelColor=0C0707">
+<img alt="Tor" src="https://img.shields.io/badge/Tor-built%20in-ECE6DA?style=flat-square&labelColor=0C0707">
+<a href="https://github.com/ShinjukuStaition/shinjuku-mcp"><img alt="MCP" src="https://img.shields.io/badge/MCP-shinjuku--mcp-DEB868?style=flat-square&labelColor=0C0707"></a>
+</p>
+
 # Shinjuku Shielded
 
 Shinjuku Shielded is a privacy-only x402 payment facilitator on Solana.
@@ -15,6 +25,12 @@ chain does not show who paid.
 - **Standard sellers work.** A seller with standard x402 `exact` middleware
   that points at our facilitator gets paid with no code change. (An
   unmodified seller was paid this way on production on 2026-09-29.)
+
+## Use it from your agent: Shinjuku Shielded MCP
+
+Give Claude, Cursor, or any MCP host the facilitator directly: shield USDC,
+pay x402 URLs from the shielded balance, and unshield, under caps that only
+you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStaition/shinjuku-mcp).
 
 ## Which endpoints you can pay
 
