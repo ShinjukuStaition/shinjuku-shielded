@@ -7,7 +7,12 @@ the release before it.
 
 ## 2026-10-08
 
-- `94a357bc` (current): pays more sellers with less setup. On npm as
+- `a8516e49` (current): the same as `94a357bc`, with two fixes. On npm as
+  `shinjuku-shielded@0.3.1`.
+  - A shield call made right after the MCP server starts now waits for the
+    server's own background pocket check instead of failing `wallet_locked`.
+  - Tool texts name fewer third-party wallets.
+- `94a357bc`: pays more sellers with less setup. On npm as
   `shinjuku-shielded@0.3.0`.
   - New proof tools `262e1e98`. They pin the pool program's new program data
     after the pool program upgrade of 2026-10-08. The earlier set `24e819a8`
