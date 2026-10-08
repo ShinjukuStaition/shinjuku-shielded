@@ -32,6 +32,21 @@ Give Claude, Cursor, or any MCP host the facilitator directly: shield USDC,
 pay x402 URLs from the shielded balance, and unshield, under caps that only
 you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStaition/shinjuku-mcp).
 
+## Docs
+
+- [How it works](docs/how-it-works.md): x402, our three schemes, the flow
+  of one payment, and what runs where.
+- [Privacy model](docs/privacy-model.md): what the chain, the seller, our
+  facilitator, the RPC, and the MCP host see, with each limit.
+- [Sell with Shinjuku Shielded](docs/sell-with-shinjuku.md): take hidden-amount
+  payments with stock x402 middleware, and get listed.
+- [Proof](docs/proof.md): live mainnet transactions, and what each one shows
+  and hides.
+- [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
+- [Changelog](CHANGELOG.md): what changed in each wallet release.
+- [Shinjuku Shielded MCP](https://github.com/ShinjukuStaition/shinjuku-mcp):
+  give your agent the wallet as tools.
+
 ## Which endpoints you can pay
 
 - **A seller that settles through our facilitator.** The wallet pays it from
@@ -102,7 +117,10 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-07 | `57bfd2fd` (no longer served) | `57bfd2fd31e127d7bcfdbd11f067cb34085d23f6938be0daf3a106bd7226fb40` | 10,101,617 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
 | 2026-10-08 | `565c4f87` (no longer served) | `565c4f8710070da6e604d0fa5a25f3147ae5dc9826bbc556e51113abce8c5276` | 10,107,045 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
 | 2026-10-08 | `63316238` (no longer served) | `633162382f09c72a48eb6d1fc21a0e09a9b5e4d920da5e74ab6eb018e6dcaf85` | 10,110,248 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
-| 2026-10-08 | [`b7d6f394`](https://shinjukustaition.com/wallet/b7d6f394/shinjuku-wallet.mjs) | `b7d6f394211c9d08ad158dc5e31495f31391c4dc5a9a60dc57a3773e443ba133` | 10,149,069 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
+| 2026-10-08 | `b7d6f394` (no longer served) | `b7d6f394211c9d08ad158dc5e31495f31391c4dc5a9a60dc57a3773e443ba133` | 10,149,069 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
+| 2026-10-08 | `c4a50798` (no longer served) | `c4a50798e53cdde49c34a51ab16143d095278e1477eedcf0a72bc6f83ac61042` | 10,154,630 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
+| 2026-10-08 | `2c2f9874` (no longer served) | `2c2f9874f95619ef291f89fa88158b97d2125198a12abe8ecade9d6c2e9f10fc` | 10,175,816 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
+| 2026-10-08 | [`1a336885`](https://shinjukustaition.com/wallet/1a336885/shinjuku-wallet.mjs) | `1a3368854f4bdfe185a2ac398106c9b39a7148225f1a3ec6a6dcead563c7ed53` | 10,176,434 | [`82b2d870`](https://shinjukustaition.com/proof-tools/82b2d870/SHA256SUMS) | `82b2d8709f28cfdd65c9a03707af4811b8d6e77b1231b4e1de6dd2d84f209c3b` | 26 (144,319,243 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
