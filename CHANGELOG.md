@@ -7,9 +7,15 @@ the release before it.
 
 ## 2026-10-08
 
-- `1a336885` (current): a relayed exit proof that is still valid and was
+- `11fe6b40` (current): one command sets everything up. `npx -y shinjuku-shielded mcp`
+  on a machine with no wallet offers setup (a y/n prompt in a terminal; in an
+  agent app, a "Create a wallet?" confirmation). Setup creates the wallet with
+  a generated private passphrase, downloads the proof tools and checks them
+  against a set pinned inside the wallet, and writes a config file, so `mcp`
+  needs no flags. On npm as `shinjuku-shielded@0.2.0`.
+- `1a336885`: a relayed exit proof that is still valid and was
   never sent is sent again at once, instead of waiting for it to expire.
-  On npm as `shinjuku-shielded@0.1.0`.
+  On npm as `shinjuku-shielded@0.1.0` and `0.1.1`.
 - `2c2f9874`: the MCP handles everything itself. `wallet_shield` is on by
   default. `wallet_unshield` sends to an address you listed at once, or to any
   other address only after you confirm it in your MCP client. The wallet's own
