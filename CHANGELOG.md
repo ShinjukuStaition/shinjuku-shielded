@@ -7,7 +7,14 @@ the release before it.
 
 ## 2026-10-08
 
-- `a8516e49` (current): the same as `94a357bc`, with two fixes. On npm as
+- `d2a7291f` (current): the same as `a8516e49`, with clearer answers. On npm as
+  `shinjuku-shielded@0.3.2`.
+  - When the facilitator is short of network-fee funds, the agent hears
+    `p03_facilitator_underfunded`: nothing was spent; try again later with a
+    new request_id.
+  - A seller that closes a payment request now tells the agent to pay again
+    with a NEW request_id.
+- `a8516e49`: the same as `94a357bc`, with two fixes. On npm as
   `shinjuku-shielded@0.3.1`.
   - A shield call made right after the MCP server starts now waits for the
     server's own background pocket check instead of failing `wallet_locked`.
