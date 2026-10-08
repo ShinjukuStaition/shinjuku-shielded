@@ -7,7 +7,31 @@ the release before it.
 
 ## 2026-10-08
 
-- `11fe6b40` (current): one command sets everything up. `npx -y shinjuku-shielded mcp`
+- `94a357bc` (current): pays more sellers with less setup. On npm as
+  `shinjuku-shielded@0.3.0`.
+  - New proof tools `262e1e98`. They pin the pool program's new program data
+    after the pool program upgrade of 2026-10-08. The earlier set `24e819a8`
+    pinned the program from before the upgrade, so setup from npm 0.2.0 now
+    refuses production. Update to 0.3.0.
+  - MCP `x402_discover` searches public x402 listings (Coinbase x402 Bazaar,
+    PayAI, Dexter, and others) on your machine. The first call takes about
+    15 seconds.
+  - Automatic pockets: for a standard `exact` seller, `x402_pay` fills a
+    1 USDC pocket from the shielded balance when it needs one.
+    `--ready-pockets 0-5` (default 1) keeps pockets ready;
+    `--no-auto-pockets` turns this off.
+  - Image answers: `x402_pay` returns image bytes (also JSON `image_base64`)
+    as an MCP image block and saves the file.
+  - `wallet_shield` needs no SOL. The facilitator's relayer pays the network
+    fee; you pay the shield cost.
+  - An Approve button with an empty form (Hermes) counts as accept.
+  - `x402_preview` and `x402_pay` price a seller that lists several networks
+    from its Solana offer.
+  - Pool history comes through the facilitator's https history proxy by
+    default. A new wallet is ready in about 60 seconds instead of about 220.
+  - A seller receipt that names another payer is checked on chain.
+  - A payment that landed, from a seller that gives no answer, closes as paid.
+- `11fe6b40`: one command sets everything up. `npx -y shinjuku-shielded mcp`
   on a machine with no wallet offers setup (a y/n prompt in a terminal; in an
   agent app, a "Create a wallet?" confirmation). Setup creates the wallet with
   a generated private passphrase, downloads the proof tools and checks them
