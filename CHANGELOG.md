@@ -7,7 +7,10 @@ the release before it.
 
 ## 2026-10-09
 
-- `36d0219d` (current): required after the pool program upgrade of 2026-10-09.
+- `14dd9efa` (current): on npm as `shinjuku-shielded@0.3.4`. Proof tools `9975fdf8`
+  pin the upgraded pool program, so pocket fills and payments work again. Run
+  `npx -y shinjuku-shielded@latest setup` once.
+- `36d0219d`: required after the pool program upgrade of 2026-10-09.
   On npm as `shinjuku-shielded@0.3.3`. Wallets from earlier releases refuse
   payments (`p03_program_history_compatibility_not_reviewed`). Run
   `npx -y shinjuku-shielded@latest setup` once: it keeps your wallet and
