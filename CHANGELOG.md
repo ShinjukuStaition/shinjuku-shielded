@@ -5,9 +5,17 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+## 2026-10-09
+
+- `36d0219d` (current): required after the pool program upgrade of 2026-10-09.
+  On npm as `shinjuku-shielded@0.3.3`. Wallets from earlier releases refuse
+  payments (`p03_program_history_compatibility_not_reviewed`). Run
+  `npx -y shinjuku-shielded@latest setup` once: it keeps your wallet and
+  downloads proof tools `a9f18f88`.
+
 ## 2026-10-08
 
-- `d2a7291f` (current): the same as `a8516e49`, with clearer answers. On npm as
+- `d2a7291f`: the same as `a8516e49`, with clearer answers. On npm as
   `shinjuku-shielded@0.3.2`.
   - When the facilitator is short of network-fee funds, the agent hears
     `p03_facilitator_underfunded`: nothing was spent; try again later with a
