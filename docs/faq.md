@@ -101,9 +101,10 @@ ceremony has run.
 
 ### Can my AI agent spend all my money?
 
-Not past your caps. The MCP server does not start without `--max-payment`
-and `--max-session`. A tool call can only lower a cap. `--allow-host` limits
-which sellers it pays.
+Not past the caps you set. Caps are optional: by default there is no limit,
+and only the balance bounds a payment. Set `--max-payment` and
+`--max-session` (or give them to setup) to limit it. A tool call can only
+lower a cap. `--allow-host` limits which sellers it pays.
 
 Limits: without `--max-unshield`, a confirmed unshield can move the whole
 shielded balance. The MCP host and its model provider see every URL, body,

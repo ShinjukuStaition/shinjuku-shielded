@@ -34,7 +34,8 @@ extension:
 
 The shielded pool for `shielded-exact` is program
 `8PYPw3FSFTMbvSneXdcoH6jNoN4VD23nHwPY2A2riUy1`, pool
-`AAG16mNWTtC1sBeu2tTVTwWjqWXCefLTCByVPj5X3kV8`.
+`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR` (since 2026-10-10; the earlier
+pool `AAG16mNWTtC1sBeu2tTVTwWjqWXCefLTCByVPj5X3kV8` is retired).
 
 ### `shielded-exact`: the payer is hidden in the pool
 

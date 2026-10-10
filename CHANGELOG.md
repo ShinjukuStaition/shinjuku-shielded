@@ -5,9 +5,21 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+## 2026-10-10
+
+- `f2ea6840` (current): on npm as `shinjuku-shielded@0.3.5`. The pool program
+  was upgraded and the shielded pool moved to
+  `45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`; the old pool
+  `AAG16mNWTtC1sBeu2tTVTwWjqWXCefLTCByVPj5X3kV8` is retired. Run
+  `npx -y shinjuku-shielded@latest setup` once: it keeps the old wallet file,
+  makes a wallet for the new pool (a new address), and downloads proof tools
+  `ad860e62`. No spending limit by default (the caps are optional; a setup
+  rerun lifts the old default caps). The first deposit into an empty pool
+  works.
+
 ## 2026-10-09
 
-- `14dd9efa` (current): on npm as `shinjuku-shielded@0.3.4`. Proof tools `9975fdf8`
+- `14dd9efa`: on npm as `shinjuku-shielded@0.3.4`. Proof tools `9975fdf8`
   pin the upgraded pool program, so pocket fills and payments work again. Run
   `npx -y shinjuku-shielded@latest setup` once.
 - `36d0219d`: required after the pool program upgrade of 2026-10-09.
