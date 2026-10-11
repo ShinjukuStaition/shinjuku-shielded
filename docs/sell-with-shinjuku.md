@@ -9,7 +9,7 @@ public files only.
 |---|---|---|
 | Standard x402 `exact`, Solana USDC, on your current facilitator (Coinbase CDP, PayAI, or any other) | Yes, through float pay. You change nothing. | The buyer's wallet. The chain shows a Shinjuku float pocket paying you. |
 | `shielded-exact` | **Not public yet.** The seller package is not in the wallet file and not on npm. Today it needs our private source repository. | The payer and the amount. |
-| Standard x402 `exact`, Solana USDC, pointed at our facilitator (`https://shinjukustaition.com/api/x402`) | Yes, through float pay, with wallet release `488372b4` (npm 0.3.7) or later. Older wallets refuse it (`p03_float_seller_uses_our_facilitator`). | The buyer's wallet. The chain shows a Shinjuku float pocket paying you. |
+| Standard x402 `exact`, Solana USDC, pointed at our facilitator (`https://shinjukustaition.com/api/x402`) | Yes, through float pay, with wallet release `08a4b56f` (npm 0.3.8) or later. | The buyer's wallet. The chain shows a Shinjuku float pocket paying you. |
 | `confidential` (Lane B, hidden amounts) | **Retired.** The V0b vault that buyers paid from was closed on chain on 2026-10-11. | |
 
 ## A standard `exact` seller: float pay

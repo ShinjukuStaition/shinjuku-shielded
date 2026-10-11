@@ -136,8 +136,8 @@ reproducibly: two independent builds give the same SHA-256.
 One payment spends one account plus at most 3 notes. Each deposit is its
 own account. When no single account covers the price, run
 `shinjuku-wallet merge`. It joins the accounts inside the pool, and our
-relayer pays every fee. Wait for the next 5-minute pool anchor, then pay
-again.
+relayer pays every fee. Wait for the next pool anchor (usually within a
+minute), then pay again.
 
 ### Which operating systems?
 

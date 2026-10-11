@@ -59,9 +59,9 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   fee of 0.001 USDC. We then pay the seller at once from our own shared
   float. You fill nothing and set nothing aside. If the seller does not take
   the payment, we refund price and fee to your shielded balance by ourselves.
-  This path needs wallet release `e3348092` (npm `shinjuku-shielded@0.3.6`)
-  or later. A seller whose `exact` settles on our own facilitator needs
-  `488372b4` (npm `shinjuku-shielded@0.3.7`) or later.
+  This path, and every other payment, needs wallet release `08a4b56f` (npm
+  `shinjuku-shielded@0.3.8`) or later: the pool program was upgraded on
+  2026-10-11, and earlier releases refuse to pay.
 
 The largest price that float pay can pay for one request is the size of our
 largest float pocket. Read it, and the fee, before you pay:
@@ -91,6 +91,10 @@ and no wallet source code.
   15 s and 1.50 USDC in 20 s, and a stock seller on our own facilitator
   (`488372b4` and later), 0.01 USDC in 16 s and 17 s: see
   [proof.md](docs/proof.md).
+- Faster pool anchors: live on mainnet since the pool program upgrade of
+  2026-10-11 (wallet release `08a4b56f` and later). The pool takes an anchor
+  about every 30 s when it grew. In our test, 12 of 12 new accounts could pay
+  within 45 s (median 18 s).
 - Per-user pockets: replaced by float pay. The wallet fills no new pocket
   for a payment. `pocket reshield` returns the USDC of an old pocket to your
   shielded balance.
@@ -151,7 +155,10 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-10 | `f2ea6840` (no longer served) | `f2ea684051a96e03ea86d998ad5b2f4033de55fce3a4f9695376e611884fdbc6` | 10,788,620 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
 | 2026-10-11 | `e3348092` (no longer served) | `e3348092deb29664a3496827f72bdd6dafc9f5f67f41b463da4c2bc84432cfac` | 10,846,173 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
 | 2026-10-11 | `9f9b4039` (no longer served) | `9f9b4039a044f74189b8a1a932c489c9653c1cdd3609d6b062363ced61ca30c6` | 10,814,984 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
-| 2026-10-11 | [`488372b4`](https://shinjukustaition.com/wallet/488372b4/shinjuku-wallet.mjs) | `488372b4f12886748870eb5fb6d5f25eb42a43b6ddc6f74c20cac033fe5f6927` | 10,818,483 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | `488372b4` (no longer works: stale program pin) | `488372b4f12886748870eb5fb6d5f25eb42a43b6ddc6f74c20cac033fe5f6927` | 10,818,483 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | `19542942` (no longer served) | `195429425616ad43e2e4bbb61e31da7b25bd74b30301b28ae4f4aa18a08250b1` | 10,818,483 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
+| 2026-10-11 | `394d020a` (no longer served) | `394d020a4183ea7ff50282001e5f37cd5d5602822ef468df72569a0c3292061e` | 10,819,973 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
+| 2026-10-11 | [`08a4b56f`](https://shinjukustaition.com/wallet/08a4b56f/shinjuku-wallet.mjs) | `08a4b56f6452268ffdd513e67326de8782b53dcec16ba88adaddf16793581206` | 10,822,047 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -366,8 +373,8 @@ own account. So a balance split over two accounts (for example 0.779 and
 2.000 USDC) cannot pay 2.001 USDC in one payment, although the total covers
 it. `merge` joins the accounts: it keeps the largest one and pays each other
 account's whole value to a note of your own wallet. Nothing leaves the pool,
-and our relayer pays every fee. After it, wait for the next 5-minute pool
-anchor, then pay. `merge --dry-run` prints the plan with no network.
+and our relayer pays every fee. After it, wait for the next pool anchor
+(usually within a minute), then pay. `merge --dry-run` prints the plan with no network.
 
 ### 5. Check your balance and withdraw
 
@@ -438,8 +445,9 @@ Keys, audits, and limits:
   run.
 - Do not expect a cold wallet to settle at once: on 2026-09-23 a payment
   took 1.5 to 4 minutes.
-- An account made in the current 5-minute epoch pays from the next one. So a
-  split balance needs `merge` and one anchor wait before a large payment.
+- A new account pays after the next pool anchor (about every 30 s when the
+  pool grew; 12 of 12 within 45 s in our test on 2026-10-11). So a split
+  balance needs `merge` and one anchor wait before a large payment.
 - Float pay needs our float to hold enough. When it is busy or being filled,
   the wallet refuses before it pays (`p03_float_busy_retry_later`,
   `p03_float_not_ready_retry_later`); try again later.

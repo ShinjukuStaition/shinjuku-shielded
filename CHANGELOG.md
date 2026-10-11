@@ -5,9 +5,30 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+## 2026-10-11 (pool program upgrade)
+
+- `08a4b56f` (current): on npm as `shinjuku-shielded@0.3.8`. Same pool
+  (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`), new proof tools
+  (`47678912`). Update now: the pool program was upgraded on 2026-10-11, and
+  `488372b4` and earlier pin the old program and cannot pay. Run
+  `npx -y shinjuku-shielded@latest setup` once. Your wallet, its address,
+  and its balance stay the same. It keeps everything in `394d020a`, and adds:
+  - When an earlier payment is not finished, the refusal
+    (`p03_resource_payment_another_request_unresolved`) names its request
+    id. Run its pay command again with the same `--request-id` to finish it;
+    it never pays twice. `balance --refresh` lists it with its `requestId`.
+- `394d020a` (served for a short time on 2026-10-11, not on npm):
+  - Float pay works on the upgraded pool. `19542942` could not read the
+    new pool layout when it returned float change.
+- `19542942` (served for a short time on 2026-10-11, not on npm):
+  - Pins the upgraded pool program and proof tools `47678912`.
+  - A new account pays sooner: the pool takes an anchor about every 30 s
+    when it grew, not only every 5 minutes. In our test on 2026-10-11, 12 of
+    12 new accounts could pay within 45 s (median 18 s).
+
 ## 2026-10-11 (later)
 
-- `488372b4` (current): on npm as `shinjuku-shielded@0.3.7`. Same pool
+- `488372b4`: on npm as `shinjuku-shielded@0.3.7`. Same pool
   (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`) and same proof tools
   (`ad860e62`). It keeps everything in `9f9b4039`, and adds:
   - An error prints its code by name. 91 float pay, refund, and seller

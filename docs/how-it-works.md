@@ -90,8 +90,7 @@ Limits: the transfer from our float pocket shows the seller, the amount,
 and the time. Our server sees which private payment paid which seller, the
 price, the resource URL, and the time, until the payment is final or
 refunded. A seller whose `exact` offer names our own facilitator is paid the
-same way (wallet release `488372b4` and later); older wallets refuse it
-(`p03_float_seller_uses_our_facilitator`). A refund waits for the next pool
+same way. A refund waits for the next pool
 anchor: it comes back within about 7 minutes.
 
 ## The flow of one payment
