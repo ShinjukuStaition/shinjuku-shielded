@@ -5,9 +5,32 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+## 2026-10-11
+
+- `e3348092` (current): on npm as `shinjuku-shielded@0.3.6`. Same pool
+  (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`) and same proof tools
+  (`ad860e62`).
+  - Float pay. A seller that takes only standard x402 `exact` (Coinbase
+    CDP, PayAI, any Solana `exact` seller that takes USDC) is paid through
+    Shinjuku. The wallet pays us privately from the shielded balance, the
+    seller's price plus a flat fee of 0.001 USDC, and we pay the seller from
+    our own shared float. This replaces per-user pockets: you fill nothing
+    and wait for no pocket. If the seller does not take the payment, we
+    refund price and fee to your shielded balance by ourselves.
+    `GET https://pay.shinjukustaition.com/api/x402/float/config` shows the
+    fee and the largest price that one request can pay.
+  - New command `merge`: joins split accounts, so one payment can spend the
+    whole balance. One payment spends one account plus at most 3 notes.
+  - New command `limits`: shows a wallet file's caps, and changes or removes
+    them (`none` removes a cap).
+  - Old pockets: `pocket reshield` returns an old pocket's USDC to the
+    shielded balance. Until then, the MCP's one balance still counts it.
+  - Hidden amounts (scheme `confidential`, the V0b vault) are retired. The
+    V0b program was closed on chain on 2026-10-11.
+
 ## 2026-10-10
 
-- `f2ea6840` (current): on npm as `shinjuku-shielded@0.3.5`. The pool program
+- `f2ea6840`: on npm as `shinjuku-shielded@0.3.5`. The pool program
   was upgraded and the shielded pool moved to
   `45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`; the old pool
   `AAG16mNWTtC1sBeu2tTVTwWjqWXCefLTCByVPj5X3kV8` is retired. Run

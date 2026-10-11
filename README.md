@@ -22,9 +22,11 @@ chain does not show who paid.
   each payment that it settles.
 - **One balance.** Your Shinjuku Shielded balance is a set of redeemable
   notes that you hold. The wallet shows it as one number.
-- **Standard sellers work.** A seller with standard x402 `exact` middleware
-  that points at our facilitator gets paid with no code change. (An
-  unmodified seller was paid this way on production on 2026-09-29.)
+- **Outside sellers work.** Any Solana x402 `exact` seller that takes USDC
+  gets paid, whichever facilitator it uses (Coinbase CDP, PayAI, or any
+  other). The seller changes nothing. Your wallet pays us privately, and we
+  pay the seller from our own float. The chain shows Shinjuku paying the
+  seller, never your wallet.
 
 ## Use it from your agent: Shinjuku Shielded MCP
 
@@ -38,8 +40,8 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   of one payment, and what runs where.
 - [Privacy model](docs/privacy-model.md): what the chain, the seller, our
   facilitator, the RPC, and the MCP host see, with each limit.
-- [Sell with Shinjuku Shielded](docs/sell-with-shinjuku.md): take hidden-amount
-  payments with stock x402 middleware, and get listed.
+- [Sell with Shinjuku Shielded](docs/sell-with-shinjuku.md): get paid by
+  Shinjuku Shielded buyers with stock x402 middleware, and get listed.
 - [Proof](docs/proof.md): live mainnet transactions, and what each one shows
   and hides.
 - [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
@@ -49,16 +51,28 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
 
 ## Which endpoints you can pay
 
-- **A seller that settles through our facilitator.** The wallet pays it from
+- **A seller whose 402 offers `shielded-exact`.** The wallet pays it from
   your shielded balance, and our facilitator settles the payment.
 - **Any other Solana x402 `exact` endpoint that takes USDC, whichever
-  facilitator settles it.** First fill a pocket (`pocket fill`). Then `pay`
-  pays the seller from that pocket. Our relayer sends your deposit and the
-  private exit into the pocket. The seller's own facilitator settles the last
-  step, the payment from the pocket to the seller. On 2026-10-02 a test paid
-  two such endpoints with real USDC on Solana mainnet: one that Coinbase's
-  facilitator settles and one that PayAI's facilitator settles. This path
-  needs wallet release `68aac3c1` or later.
+  facilitator settles it (float pay).** `pay` (or the MCP `x402_pay`) pays
+  us privately from your shielded balance: the seller's price plus a flat
+  fee of 0.001 USDC. We then pay the seller at once from our own shared
+  float. You fill nothing and set nothing aside. If the seller does not take
+  the payment, we refund price and fee to your shielded balance by ourselves.
+  This path needs wallet release `e3348092` (npm `shinjuku-shielded@0.3.6`)
+  or later.
+
+The largest price that float pay can pay for one request is the size of our
+largest float pocket. Read it, and the fee, before you pay:
+
+```sh
+curl -fsS https://pay.shinjukustaition.com/api/x402/float/config
+```
+
+`feeAtomic` is the fee and `largestAtomic` is the largest price, in atomic
+USDC (1000000 = 1 USDC). On 2026-10-11 they were `1000` (0.001 USDC) and
+`3000000` (3 USDC). A higher price is refused before anything is paid
+(`p03_float_price_above_capacity`).
 
 The 3D market game [Shinjuku Undermarket](https://shinjukustaition.com) is
 our first customer and our live demo.
@@ -69,15 +83,19 @@ and no wallet source code.
 
 ## Status
 
-- Hidden amounts on mainnet: live, as a capped alpha.
-- Pocket payments to sellers that settle through our facilitator: live.
-- Pocket payments to any Solana x402 `exact` endpoint that takes USDC: live
-  (wallet release `68aac3c1` and later).
+- `shielded-exact` payments from the shielded balance: live on mainnet.
+- Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
+  mainnet since 2026-10-11 (wallet release `e3348092` and later). On
+  2026-10-11 it paid two stock sellers on the PayAI facilitator, 0.10 USDC in
+  15 s and 1.50 USDC in 20 s: see [proof.md](docs/proof.md).
+- Per-user pockets: replaced by float pay. The wallet fills no new pocket
+  for a payment. `pocket reshield` returns the USDC of an old pocket to your
+  shielded balance.
+- Hidden amounts (scheme `confidential`, the V0b vault): retired. The V0b
+  program was closed on chain on 2026-10-11.
 - The wallet file and its proof tools, served from our site and our onion
   service with SHA-256 hashes: live.
-- Key ceremonies: single-operator setup ceremony for the V0b keys done
-  (2026-10-06); a multi-party ceremony: not yet.
-- Operator-blind keys (our key service in a secure enclave): in progress.
+- Key ceremonies: a multi-party ceremony: not yet.
 - Independent audit: none yet.
 
 ## Releases
@@ -127,7 +145,8 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-08 | `d2a7291f` (no longer works: pool program upgraded) | `d2a7291f11d583fab55b39ab67cc820808e5c7607618d1456c70cda34eb3450f` | 10,441,804 | [`262e1e98`](https://shinjukustaition.com/proof-tools/262e1e98/SHA256SUMS) | `262e1e98f871a12dbd7f3d6a41350982a098109e7e7356e44e854b96dac73f24` | 26 (144,322,131 bytes) |
 | 2026-10-09 | `36d0219d` (no longer works: stale proof-tools pin) | `36d0219d0ccb169ff0dc6d81d60a0437c10e7c26d9878fe673d86cc4043fb581` | 10,759,010 | [`a9f18f88`](https://shinjukustaition.com/proof-tools/a9f18f88/SHA256SUMS) | `a9f18f88d1999f50f1c589ec80c746fda634262c7051a5e7d76c534fe9431db8` | 26 (144,324,423 bytes) |
 | 2026-10-09 | `14dd9efa` (no longer works: pool AAG16 retired) | `14dd9efa7c6bbd2906a56e732a4aff9d23c7b867b6fd9fec4f005494acc3823b` | 10,759,068 | [`9975fdf8`](https://shinjukustaition.com/proof-tools/9975fdf8/SHA256SUMS) | `9975fdf857298f5fcb82feba64400b21faca0bad846c61e9126b9a0663d430be` | 26 (144,324,423 bytes) |
-| 2026-10-10 | [`f2ea6840`](https://shinjukustaition.com/wallet/f2ea6840/shinjuku-wallet.mjs) | `f2ea684051a96e03ea86d998ad5b2f4033de55fce3a4f9695376e611884fdbc6` | 10,788,620 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-10 | `f2ea6840` (no longer served) | `f2ea684051a96e03ea86d998ad5b2f4033de55fce3a4f9695376e611884fdbc6` | 10,788,620 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | [`e3348092`](https://shinjukustaition.com/wallet/e3348092/shinjuku-wallet.mjs) | `e3348092deb29664a3496827f72bdd6dafc9f5f67f41b463da4c2bc84432cfac` | 10,846,173 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -201,16 +220,16 @@ working example).
 
 With the wallet file alone, these commands work: every `help` page, `init`,
 `backup-export`, `backup-verify`, `restore`, `balance` (without
-`--refresh`), and `v0b selfcheck`. The money commands also need the proof
-tools (next section).
+`--refresh`), `limits`, and `merge --dry-run`. The money commands also need
+the proof tools (next section).
 
 ## Get the proof tools
 
 `add-funds`, `deposit`, `recover`, `balance --refresh`, `pay`, `buy-item`,
-`unshield`, and `pocket fill` need the proof tools of the facilitator that you
-use: two manifests, the facilitator's public profile, Linux x86-64 provers,
-and the signed proving parameters (29 files, about 184 MB). They need wallet
-release `68aac3c1` or later.
+`unshield`, `merge`, and `pocket reshield` need the proof tools of the
+facilitator that you use: two manifests, the facilitator's public profile,
+Linux x86-64 provers, and the signed proving parameters (26 files, about
+144 MB).
 
 The provers are Linux programs.
 
@@ -235,14 +254,11 @@ Go on only when the list check prints `OK` and the last check prints
 `ALL_OK`. Then give the wallet:
 
 - `--proof-tools shinjuku-proof-tools/proof-tools.json`
-  (`--payer-proof-tools` for `pocket fill` and `unshield`),
+  (`--payer-proof-tools` for `unshield`),
 - `--exit-proof-tools shinjuku-proof-tools/exit-proof-tools.json`,
 - `--profile shinjuku-proof-tools/public-profile.json`.
 
 The wallet checks the SHA-256 of each binary again before every run.
-
-The `v0b` money commands (the hidden-amount vault) also need the
-`ctvault_v0b` prover. We do not publish it yet.
 
 ## Quick start
 
@@ -278,8 +294,17 @@ refuses any connection that does not go through the proxy.
 
 ```sh
 node $W init --pool $POOL --network $NETWORK --asset $MINT \
-  --binding carbon-shielded-exact/svm-v3 --max-payment 30000 --max-cumulative 60000 \
-  --backup-out recovery.txt
+  --binding carbon-shielded-exact/svm-v3 --backup-out recovery.txt
+```
+
+Caps are optional: by default there is no limit, and only the balance bounds
+a payment. `init --max-payment` and `--max-cumulative` set caps in the
+wallet file. `limits` shows them, and changes or removes them later
+(`none` removes a cap):
+
+```sh
+node $W limits --pool $POOL
+node $W limits --pool $POOL --max-payment none --max-cumulative none
 ```
 
 `init` writes your recovery text (the seed and the Solana secret key) only
@@ -320,15 +345,24 @@ transfer links you.
 
 ```sh
 node $W help pay
-node $W help pocket fill
+node $W help merge
 ```
 
-- A seller that settles through our facilitator: `pay` pays it from your
+- A seller whose 402 offers `shielded-exact`: `pay` pays it from your
   shielded balance at the seller's price.
-- Any other Solana x402 `exact` endpoint that takes USDC: run `pocket fill`
-  first. The pocket fills ahead of the payment, so the payment itself does
-  not wait for the privacy steps. Then `pay` pays from the pocket. The first
-  payment binds the pocket to that seller; later payments reuse it.
+- Any other Solana x402 `exact` endpoint that takes USDC: `pay` pays it
+  through Shinjuku (float pay). Your wallet pays us privately, price plus
+  the fee, and we pay the seller from our float. `--maximum-atomic` must
+  cover price plus fee. Nothing to fill or set up.
+- A rerun with the same `--request-id` never pays twice.
+
+One payment spends one account plus at most 3 notes. Each deposit is its
+own account. So a balance split over two accounts (for example 0.779 and
+2.000 USDC) cannot pay 2.001 USDC in one payment, although the total covers
+it. `merge` joins the accounts: it keeps the largest one and pays each other
+account's whole value to a note of your own wallet. Nothing leaves the pool,
+and our relayer pays every fee. After it, wait for the next 5-minute pool
+anchor, then pay. `merge --dry-run` prints the plan with no network.
 
 ### 5. Check your balance and withdraw
 
@@ -364,9 +398,10 @@ that moves value.
 ## What the privacy covers, and what it does not
 
 What the chain does not show: who paid a seller from a Shinjuku Shielded
-balance. In the confidential-vault pool (V0b, the wallet's `v0b` commands),
-the deposit into the pool and the exit from it carry no amount bytes on
-chain.
+balance. With float pay, the chain shows a pool payment (the payer hidden)
+and then a Shinjuku float pocket that pays the seller. Many buyers pay from
+the same float pockets, so a chain observer cannot group one buyer's
+purchases.
 
 What it does not hide:
 
@@ -377,18 +412,16 @@ What it does not hide:
   depositors in a pool, time can pair your deposit with your later payments.
   When you are the only user (k=1), waiting buys nothing. Our pools are new
   and have few users.
-- **Amounts outside the vault are public.** In the V0b pool, the wrap,
-  unwrap, and withdraw amounts are public, and the deposit amount can be
-  inferred from the public wrap one transaction earlier. Pockets move public
-  1 USDC chunks, and the seller's price is public.
-- **Another facilitator sees its last step.** When the seller's own
-  facilitator settles the payment from a pocket, that facilitator sees the
-  pocket, the seller, the amount, and the time, as the chain does.
-- **Our key service sees V0b amounts.** It sees every V0b amount, and it can
-  block every V0b exit: there is no guardian or escape path yet.
-- **One fee payer.** Our relayer pays every V0b transaction, so the chain
-  groups those accounts under one fee payer. That alone does not link a
-  deposit to a pocket; timing and amounts can.
+- **Float pay: our server sees both sides.** For a float payment, our server
+  sees that this private payment paid seller X, the price, the resource URL,
+  and the time. It does not see your wallet. It keeps that link only until
+  the payment is final or refunded.
+- **Float pay: the seller's price is public.** The transfer from our float
+  pocket to the seller shows the amount, the seller, and the time. It lands
+  seconds after your pool payment, so time can pair the two.
+- **Another facilitator sees its last step.** The seller's own facilitator
+  settles the transfer from our float pocket. It sees our pocket, the
+  seller, the amount, and the time, as the chain does.
 - **Your own traces.** A keyed RPC URL names you. The timing of your
   requests links them. Everything you sign on chain is public.
 
@@ -396,15 +429,15 @@ Keys, audits, and limits:
 
 - The production keys of the main shielded pool came from a
   single-operator offline setup. No multi-party ceremony has run.
-- The V0b proving keys come from a single-operator setup ceremony run on
-  2026-10-06; the V0b program was upgraded to verify only proofs made with
-  those keys, and a new V0b pool opened with them (wallet release `833aeed3`
-  or later proves with them). No multi-party ceremony has run yet. The older
-  V0b pool, made with test-only keys, accepts exits only.
 - No independent audit of the circuits, the verifiers, or the binding has
   run.
 - Do not expect a cold wallet to settle at once: on 2026-09-23 a payment
-  took 1.5 to 4 minutes. Pockets are filled ahead of a payment.
+  took 1.5 to 4 minutes.
+- An account made in the current 5-minute epoch pays from the next one. So a
+  split balance needs `merge` and one anchor wait before a large payment.
+- Float pay needs our float to hold enough. When it is busy or being filled,
+  the wallet refuses before it pays (`p03_float_busy_retry_later`,
+  `p03_float_not_ready_retry_later`); try again later.
 
 ## Copyright
 

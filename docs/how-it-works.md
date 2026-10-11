@@ -22,20 +22,23 @@ points its middleware at a facilitator.
 - Routes the seller's middleware calls: `/verify` and `/settle`.
 - What it offers: `GET https://shinjukustaition.com/api/x402/supported`.
 
-On 2026-10-08 that route listed three schemes, all on Solana mainnet
-(`solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp`), and the `discovery`
-extension:
+The wallet pays in two ways, both on Solana mainnet
+(`solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp`) in USDC:
 
-| Scheme | What is hidden on chain | Token | Fee payer that signs |
+| Way | When | What the chain shows | Who signs |
 |---|---|---|---|
-| `shielded-exact` | The payer and the amount. The payment is a proof inside the shielded pool. | USDC | `6LhX4sv2JM4YXPgBQx9eemzXYJtNwyHM6JxkPiGV3dZS` |
-| `confidential` | The amount and the seller. Confidential transfer to a one-time account. | shUSDC (`7Xwrv1RK1m8oijzWXTSVj5FeWkpihRjoPzpJ9j371Njr`, wrapped USDC) | `6LhX4sv2JM4YXPgBQx9eemzXYJtNwyHM6JxkPiGV3dZS` |
-| `exact` (pocket) | Your wallet's own key. The amount and the seller are public. | USDC | `zM8c2oE4QibuKc93sgCpA6i564vDygXGa67S1ag4rX2` |
+| `shielded-exact` | The seller's 402 offers `shielded-exact`. | A pool program call. No payer, no amount, no token movement. | Our fee payer `6LhX4sv2JM4YXPgBQx9eemzXYJtNwyHM6JxkPiGV3dZS` |
+| Float pay | The seller offers only standard `exact`, on any facilitator. | A pool payment to us (the payer hidden), then a Shinjuku float pocket paying the seller. | Our fee payer for the pool payment; the seller's facilitator and our float pocket for the transfer |
 
 The shielded pool for `shielded-exact` is program
 `8PYPw3FSFTMbvSneXdcoH6jNoN4VD23nHwPY2A2riUy1`, pool
 `45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR` (since 2026-10-10; the earlier
 pool `AAG16mNWTtC1sBeu2tTVTwWjqWXCefLTCByVPj5X3kV8` is retired).
+
+Retired: scheme `confidential` (hidden amounts, Lane B) paid from the V0b
+vault. The V0b program was closed on chain on 2026-10-11, so the wallet can
+no longer pay it. Per-user pockets (`exact` from a pocket of your own) are
+replaced by float pay: the wallet fills no new pocket.
 
 ### `shielded-exact`: the payer is hidden in the pool
 
@@ -51,40 +54,44 @@ it. Limit: this hides you only among the other users of the pool. Our pools
 are new and have few users (see "Privacy needs a crowd" in
 [privacy-model.md](privacy-model.md)).
 
-### `confidential`: the amount is hidden (Lane B)
+One payment spends one account plus at most 3 notes. Each deposit is its own
+account. When the balance is split over several accounts, `merge` joins
+them: it pays each smaller account's whole value to a note of your own
+wallet, inside the pool.
 
-This scheme uses Solana confidential transfers (Token-2022) of shUSDC. The
-seller registers two public keys and opens one-time receiving accounts,
-called slots. The payer pays from a pocket of the V0b pool, our
-hidden-amount vault.
+### Float pay: any `exact` seller, paid by us
 
-The payer's wallet reserves one of the seller's slots, builds the transfer,
-and proves the amount on the payer's machine. Our facilitator checks that
-proof (`amountCheck: "dleq-v1"`): a transfer below the price is refused, and
-nothing moves. The payment is 5 transactions from our fee payer. The chain
-shows no amount and no seller. The seller checks each slot itself with
-`laneb receipts --verify`.
+Our rule: to pay an outside seller, you pay us privately, and we pay the
+seller from our own float.
 
-Limits: our facilitator sees the amount, the seller, the URL, and the payer
-account. The seller sees the payer's pocket address. Who paid rests on the
-V0b pool's crowd, which is small.
+1. The wallet gets the seller's 402 and picks its `exact` offer on our
+   pool's network and token.
+2. It reads `GET https://pay.shinjukustaition.com/api/x402/float/config`:
+   the fee (`feeAtomic`, 1000 = 0.001 USDC on 2026-10-11) and the largest
+   price that one request can pay (`largestAtomic`, 3 USDC on 2026-10-11).
+3. It asks us for a quote for that seller. A price above `largestAtomic` is
+   refused before anything is paid.
+4. It pays us the price plus the fee with a normal `shielded-exact` payment.
+5. Our facilitator settles that payment, and we sign a standard x402 `exact`
+   transfer to the seller from one of our shared float pockets.
+6. The wallet sends the original request to the seller with that payment.
+   The seller's own facilitator settles it, and the seller answers.
 
-### `exact` from a pocket: standard sellers work
+- A rerun with the same request ID never pays us twice. It sends the same
+  payment to the seller again.
+- If the seller does not take the payment, we refund price plus fee to your
+  shielded balance with a private payment. We refund only when the
+  transfer to the seller can no longer land, so the seller and the refund
+  are never both paid.
+- You fill nothing and set nothing aside. Many buyers pay from the same
+  float pockets.
 
-A pocket is a one-time USDC account. Its key comes from your seed. The
-wallet fills it ahead of time from the shielded pool. Our relayer sends the
-exit into the pocket and pays its fees. A payment from the pocket is then a
-standard x402 `exact` payment: one fast token transfer.
-
-- Each seller gets its own pocket. The chain never shows one pocket paying
-  two sellers.
-- Our facilitator settles `exact` only from pockets that our pool filled.
-- A pocket also pays any other Solana x402 `exact` endpoint that takes USDC,
-  whichever facilitator settles it.
-
-Limits: the chain shows the pocket, the seller, the amount, and the time.
-It does not show your wallet's own key. With few depositors in the pool, an
-observer who lists the pool deposits can link the pocket to its depositor.
+Limits: the transfer from our float pocket shows the seller, the amount,
+and the time. Our server sees which private payment paid which seller, the
+price, the resource URL, and the time, until the payment is final or
+refunded. A seller whose `exact` offer names our own pocket fee payer is
+refused (`p03_float_seller_uses_our_facilitator`): such a seller must offer
+`shielded-exact`.
 
 ## The flow of one payment
 
@@ -134,8 +141,8 @@ sequenceDiagram
 | Where | What runs there |
 |---|---|
 | Your machine | The wallet file (Node.js 22 or later). Your keys and seed, encrypted with your passphrase. The wallet's log of every step that moves value. The provers that make your proofs (Linux x86-64; on Windows through WSL; macOS is not supported). The local MCP server, if you start it. |
-| Our server | The facilitator (`/api/x402/supported`, `/verify`, `/settle`). The relayer for relayed deposits, exits, and pocket fills. The encrypted memo service. A Solana RPC relay (`/api/solana-rpc`), so you need no RPC of your own. The Lane B routes. The opt-in seller list. An onion service. The key service of the V0b pool. |
-| Solana | The shielded pool program and its pool, which check every proof. The V0b vault. The shUSDC mint (Token-2022 confidential transfers). Every transaction is public. |
+| Our server | The facilitator (`/api/x402/supported`, `/verify`, `/settle`). The relayer for relayed deposits and exits. The float that pays outside sellers (`/api/x402/float/*`), with its shared float pockets. The encrypted memo service. A Solana RPC relay (`/api/solana-rpc`), so you need no RPC of your own. The opt-in seller list. An onion service. |
+| Solana | The shielded pool program and its pool, which check every proof. Every transaction is public. |
 
 Our server never holds your keys. It does see what it processes. See
 [privacy-model.md](privacy-model.md).

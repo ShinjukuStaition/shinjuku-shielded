@@ -6,36 +6,40 @@ No. `init` makes your Solana key and your shielded seed on your machine. We
 never receive your keys, seed, passphrase, or recovery file. Our facilitator
 and relayer pay network fees. They never hold your money.
 
-Limit: in the V0b pool (hidden amounts), our key service sees every amount
-and can block every exit. No guardian or escape path exists yet.
+Limit: with float pay, your payment for an outside seller goes to us
+first, and we pay the seller from our own float. If our transfer to the
+seller can no longer land, we refund price and fee to you privately.
 
 ### What does it cost?
 
 - You pay the seller's price.
+- To an outside `exact` seller (float pay), you also pay us a flat fee:
+  0.001 USDC on 2026-10-11. `GET https://pay.shinjukustaition.com/api/x402/float/config`
+  shows it (`feeAtomic`).
 - Our facilitator pays the network fee of each payment that it settles.
-- Our relayer pays the fees of relayed deposits, exits, and pocket fills.
-- In Lane B we pay every fee and the rent of each slot.
+- Our relayer pays the fees of relayed deposits, exits, and `merge`.
 - Your own key pays when it signs: a self-broadcast deposit, MCP
   `wallet_shield` (it needs about 0.01 SOL on the wallet key), and the first
   Privacy Cash step.
 - The funding route has its own costs (an exchange withdrawal fee, a
   ChangeNOW swap).
 
-Our docs name no separate facilitator fee.
+A seller whose 402 offers `shielded-exact` pays no fee to us beyond its
+price.
 
 ### Which networks and tokens?
 
 Solana mainnet only (`solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp`). The token
-is USDC. Scheme `confidential` uses shUSDC, a wrapped USDC with confidential
-transfers. `GET https://shinjukustaition.com/api/x402/supported` lists what
+is USDC. `GET https://shinjukustaition.com/api/x402/supported` lists what
 the facilitator serves now.
 
 ### Can you see my payments?
 
 Our server sees what it processes: your deposits, payments, and exits, their
-times, and the IP of each request (a Tor exit with `--tor`). In Lane B we
-also see the amount, the seller, and the URL. We cannot decrypt a Lane B
-slot. The details for each scheme are in
+times, and the IP of each request (a Tor exit with `--tor`). With float pay
+we also see which private payment paid which seller, the price, and the
+URL, until the payment is final or refunded. We do not see your wallet. The
+details for each scheme are in
 [privacy-model.md](privacy-model.md).
 
 ### Do you keep logs?
@@ -83,9 +87,8 @@ your notes from your seed, the public chain history, and the encrypted
 memos. The wallet logs each step that moves value before it sends it. After
 an interruption, run the same command again.
 
-Limit: payments, relayed deposits, exits, and pocket fills use our
-facilitator and relayer. Our docs describe no exit path that works without
-our server. In the V0b pool, our key service can block every exit.
+Limit: payments, relayed deposits, and exits use our facilitator and
+relayer. Our docs describe no exit path that works without our server.
 
 ### What if I lose my keys?
 
@@ -104,7 +107,9 @@ ceremony has run.
 Not past the caps you set. Caps are optional: by default there is no limit,
 and only the balance bounds a payment. Set `--max-payment` and
 `--max-session` (or give them to setup) to limit it. A tool call can only
-lower a cap. `--allow-host` limits which sellers it pays.
+lower a cap. `--allow-host` limits which sellers it pays. Caps in the
+wallet file itself (`init --max-payment`, `--max-cumulative`) change with
+`shinjuku-wallet limits` (`none` removes a cap).
 
 Limits: without `--max-unshield`, a confirmed unshield can move the whole
 shielded balance. The MCP host and its model provider see every URL, body,
@@ -112,9 +117,12 @@ price, and paid answer. A local model removes that observer.
 
 ### Can I sell?
 
-Yes, with scheme `confidential` (hidden amount) or standard `exact`, from
-public files: [sell-with-shinjuku.md](sell-with-shinjuku.md). Selling
-`shielded-exact` needs our source repository, which is not public yet.
+Yes. Keep your standard x402 `exact` middleware on your current
+facilitator (Coinbase CDP, PayAI, or any other). Shinjuku Shielded buyers
+pay you through float pay, and you change nothing:
+[sell-with-shinjuku.md](sell-with-shinjuku.md). Selling `shielded-exact`
+needs our source repository, which is not public yet. Hidden-amount selling
+(scheme `confidential`) is retired.
 
 ### How do I know the wallet file is ours?
 
@@ -122,6 +130,14 @@ Check its SHA-256 against two places: our website and the Releases table in
 this repository. A match proves that your copy is complete and equals the
 published file. It does not prove who made the file. Each release builds
 reproducibly: two independent builds give the same SHA-256.
+
+### Why does a payment say the balance is split?
+
+One payment spends one account plus at most 3 notes. Each deposit is its
+own account. When no single account covers the price, run
+`shinjuku-wallet merge`. It joins the accounts inside the pool, and our
+relayer pays every fee. Wait for the next 5-minute pool anchor, then pay
+again.
 
 ### Which operating systems?
 

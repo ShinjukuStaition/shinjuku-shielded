@@ -1,9 +1,9 @@
 # Proof: live mainnet transactions
 
 Each row below is a real Solana mainnet transaction from our own test
-runs. We read each one again on 2026-10-08 from the public RPC
+runs. We read each one again from the public RPC
 (`https://api.mainnet-beta.solana.com`, `getTransaction`, commitment
-`finalized`). Each one is finalized with `err: null`.
+`finalized`): on 2026-10-08, and the float pay rows on 2026-10-11. Each one is finalized with `err: null`.
 
 The amounts are small test amounts. These runs prove that the paths work.
 They do not prove a large anonymity set: our pools are new and have few
@@ -16,7 +16,28 @@ users (see [privacy-model.md](privacy-model.md)).
 | A wallet paid a seller from its shielded balance over `--tor`, on production, 2026-10-07 19:39Z (22.7 s from start to the paid answer). | [`sq4NwDwU…WQp`](https://solscan.io/tx/sq4NwDwUASTns7wcg4CcXjLtZhAZH8bTqWodnXQZEc4P7vpiLutNhs12cUYPNJQ4DhUsP23K4WTqbVhGTWchWQp) | One call to the pool program (`8PYPw3FS…`), signed only by our fee payer (`6LhX4sv2…`). | Any token movement, the amount, the payer, the seller. |
 | The same path, on production, 2026-10-07 19:16Z (21.9 s). | [`5khn7syZ…cs8n2`](https://solscan.io/tx/5khn7syZYS8m2mvmyjdJmuksehamPgUGRnqpSVCxtSnaFgXZQPae1cReowsR7HJv8uzPLoi7ef1B22hg2Hgcs8n2) | The same: one pool program call by our fee payer. | The same. |
 
-## `confidential`: hidden amount (Lane B)
+## Float pay: an outside `exact` seller, paid by Shinjuku
+
+On production, 2026-10-11. The sellers were our
+own test sellers: stock `@x402/express` servers on the PayAI facilitator,
+not pointed at our facilitator. Each payment is two transactions: the
+buyer's private payment to us, then our float pocket's transfer to the
+seller. We read all four again on 2026-10-11 from the public RPC
+(`finalized`, `err: null`).
+
+| Claim | Buyer payment to us | Transfer to the seller | The chain shows | The chain does not show |
+|---|---|---|---|---|
+| 0.10 USDC to a stock PayAI seller, 15 s, 08:27Z. | [`5v44HKT1…MpbG`](https://solscan.io/tx/5v44HKT15m24LdYy7PsHuZgTnQsQTWXfbDN7ZgTzTumDUXQGMAnqpCSshFUxB3XeY2nJ1CydsMbrKmNr9YgxMpbG) | [`3tDcBaMb…qrps`](https://solscan.io/tx/3tDcBaMbxKXnhfE3AmbmTeKAJ2oYFuswV5JUZdq3ay4VpjZhzepqWkgooqVqzRG3CJy5YX1gdYmFTEpWXYQCqrps) | Payment: one pool program call signed only by our fee payer (`6LhX4sv2…`). Transfer: 100,000 atomic USDC from a Shinjuku float pocket to the seller, signed by the seller's facilitator fee payer and the float pocket. | The buyer's wallet. The payment moves no token and shows no amount. |
+| 1.50 USDC to a stock PayAI seller, 20 s, 08:52Z. | [`2KnWsvJV…hdwy`](https://solscan.io/tx/2KnWsvJV86EP8LtD6xhGJ46xFt4oRDdZCh6MZLFDftzhVQjebxTnNvCVxdH4JMLV9UPWsVRaMBG4qi8XuaqZhdwy) | [`q2nPBr6o…UAo2`](https://solscan.io/tx/q2nPBr6o2wRwRy8pCyevNmzb1mm9G3jHqTT7kE8dk21tQYRGjTb2v7wBJh3gDaVwcWqDNgqp6VjJgbW9FUDUAo2) | The same shape: 1,500,000 atomic USDC from a float pocket to the seller. | The buyer's wallet. |
+
+Limits: each transfer to the seller landed 2 to 3 seconds after its buyer
+payment, so time pairs them in a quiet pool. Our server saw which payment
+paid which seller until each row was final.
+
+## `confidential`: hidden amount (Lane B, retired)
+
+This scheme is retired: the V0b vault that it paid from was closed on chain
+on 2026-10-11. The rows below stay as a record.
 
 | Claim | Transaction | The chain shows | The chain does not show |
 |---|---|---|---|
@@ -33,7 +54,7 @@ saw the amount, the seller, and the URL of each payment.
 
 These runs used the wallet's local MCP server
 ([shinjuku-mcp](https://github.com/ShinjukuStaition/shinjuku-mcp)) on
-2026-10-08.
+2026-10-08, before float pay replaced pockets.
 
 | Claim | Transaction | The chain shows | The chain does not show |
 |---|---|---|---|
@@ -58,7 +79,7 @@ Limits:
 ```sh
 curl -s https://api.mainnet-beta.solana.com -H "Content-Type: application/json" -d '{
   "jsonrpc":"2.0","id":1,"method":"getTransaction",
-  "params":["<signature>",{"commitment":"finalized","encoding":"jsonParsed","maxSupportedTransactionVersion":0}]
+  "params":["<signature>",{"commitment":"finalized","encoding":"jsonParsed","maxSupportedTransactionVersion":1}]
 }'
 ```
 
