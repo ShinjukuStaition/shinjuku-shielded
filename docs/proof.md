@@ -34,6 +34,22 @@ Limits: each transfer to the seller landed 2 to 3 seconds after its buyer
 payment, so time pairs them in a quiet pool. Our server saw which payment
 paid which seller until each row was final.
 
+### Float pay: a stock seller on our own facilitator
+
+On production, 2026-10-11, with the MCP wallet. The seller was our own test
+seller: a stock `@x402/express` server with its facilitator URL set to
+`https://shinjukustaition.com/api/x402`. Our facilitator settled the
+transfer and paid its network fee. We read all four again on 2026-10-11
+from the public RPC (`finalized`, `err: null`). We pair each buyer payment
+with its transfer by time: it is the only pool transaction in the 40 s
+before the transfer, and our server logged one float payment in that
+minute.
+
+| Claim | Buyer payment to us | Transfer to the seller | The chain shows | The chain does not show |
+|---|---|---|---|---|
+| 0.01 USDC, a pre-release build of the same code, 16 s, 11:18Z. | [`251veadV…uELuh`](https://solscan.io/tx/251veadVto2mB3Y8dArE4c51YZMjDuYiNLQp3JuCrneK2rgvM63fqBqM4ntWTX4rrcTBg3XwxcuUStHLfHnuELuh) | [`2PyGE54t…QP8X`](https://solscan.io/tx/2PyGE54tbMKLqHCPfd1D2UDNPMEBhC4yvSGDcsJqhNP3xNT5Kr7BUfDK7X8a4tsTEP7YqQcM3EXo1PU5Kzv5QP8X) | Payment: one pool program call signed only by our fee payer (`6LhX4sv2…`). Transfer: 10,000 atomic USDC from a Shinjuku float pocket (`CXAvgXsa…`) to the seller, signed by our pocket fee payer (`zM8c2oE4…`) and the float pocket. | The buyer's wallet. The payment moves no token and shows no amount. |
+| 0.01 USDC, wallet release `488372b4`, 17 s, 11:42Z. | [`5FY8uXY3…KL3d`](https://solscan.io/tx/5FY8uXY3M789TNNGn8Root69E2RGAHq4GAq25NZPGphYdDvx3ZXBF5GuBdfhKBSjuQ7fsSe3ssxD3Z6BB6fGKL3d) | [`3jPseh8T…TfoC`](https://solscan.io/tx/3jPseh8TsiCs5iyY6EENeEmBg2JFkP6zrWbU4BMd6c46d97igg9TT72pk2SYhS5dR5SiwU66aLU7AYWrvjN2TfoC) | The same shape. | The buyer's wallet. |
+
 ## `confidential`: hidden amount (Lane B, retired)
 
 This scheme is retired: the V0b vault that it paid from was closed on chain

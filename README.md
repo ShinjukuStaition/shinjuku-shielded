@@ -60,7 +60,8 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   float. You fill nothing and set nothing aside. If the seller does not take
   the payment, we refund price and fee to your shielded balance by ourselves.
   This path needs wallet release `e3348092` (npm `shinjuku-shielded@0.3.6`)
-  or later.
+  or later. A seller whose `exact` settles on our own facilitator needs
+  `488372b4` (npm `shinjuku-shielded@0.3.7`) or later.
 
 The largest price that float pay can pay for one request is the size of our
 largest float pocket. Read it, and the fee, before you pay:
@@ -87,7 +88,9 @@ and no wallet source code.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
   2026-10-11 it paid two stock sellers on the PayAI facilitator, 0.10 USDC in
-  15 s and 1.50 USDC in 20 s: see [proof.md](docs/proof.md).
+  15 s and 1.50 USDC in 20 s, and a stock seller on our own facilitator
+  (`488372b4` and later), 0.01 USDC in 16 s and 17 s: see
+  [proof.md](docs/proof.md).
 - Per-user pockets: replaced by float pay. The wallet fills no new pocket
   for a payment. `pocket reshield` returns the USDC of an old pocket to your
   shielded balance.
@@ -146,7 +149,9 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-09 | `36d0219d` (no longer works: stale proof-tools pin) | `36d0219d0ccb169ff0dc6d81d60a0437c10e7c26d9878fe673d86cc4043fb581` | 10,759,010 | [`a9f18f88`](https://shinjukustaition.com/proof-tools/a9f18f88/SHA256SUMS) | `a9f18f88d1999f50f1c589ec80c746fda634262c7051a5e7d76c534fe9431db8` | 26 (144,324,423 bytes) |
 | 2026-10-09 | `14dd9efa` (no longer works: pool AAG16 retired) | `14dd9efa7c6bbd2906a56e732a4aff9d23c7b867b6fd9fec4f005494acc3823b` | 10,759,068 | [`9975fdf8`](https://shinjukustaition.com/proof-tools/9975fdf8/SHA256SUMS) | `9975fdf857298f5fcb82feba64400b21faca0bad846c61e9126b9a0663d430be` | 26 (144,324,423 bytes) |
 | 2026-10-10 | `f2ea6840` (no longer served) | `f2ea684051a96e03ea86d998ad5b2f4033de55fce3a4f9695376e611884fdbc6` | 10,788,620 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
-| 2026-10-11 | [`e3348092`](https://shinjukustaition.com/wallet/e3348092/shinjuku-wallet.mjs) | `e3348092deb29664a3496827f72bdd6dafc9f5f67f41b463da4c2bc84432cfac` | 10,846,173 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | `e3348092` (no longer served) | `e3348092deb29664a3496827f72bdd6dafc9f5f67f41b463da4c2bc84432cfac` | 10,846,173 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | `9f9b4039` (no longer served) | `9f9b4039a044f74189b8a1a932c489c9653c1cdd3609d6b062363ced61ca30c6` | 10,814,984 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
+| 2026-10-11 | [`488372b4`](https://shinjukustaition.com/wallet/488372b4/shinjuku-wallet.mjs) | `488372b4f12886748870eb5fb6d5f25eb42a43b6ddc6f74c20cac033fe5f6927` | 10,818,483 | [`ad860e62`](https://shinjukustaition.com/proof-tools/ad860e62/SHA256SUMS) | `ad860e62dd9bde09008fce798dbe0970f59ef9f7fca846e5a5238c93d7f42597` | 26 (144,319,242 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside

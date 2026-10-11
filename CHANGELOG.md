@@ -5,6 +5,30 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+## 2026-10-11 (later)
+
+- `488372b4` (current): on npm as `shinjuku-shielded@0.3.7`. Same pool
+  (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`) and same proof tools
+  (`ad860e62`). It keeps everything in `9f9b4039`, and adds:
+  - An error prints its code by name. 91 float pay, refund, and seller
+    codes printed as `unknown_error` before.
+  - The error line prints only the wallet's own messages. No text from a
+    library can reach it.
+- `9f9b4039` (served for a short time on 2026-10-11, not on npm):
+  - Float pay also pays a stock `exact` seller that settles on our own
+    facilitator. `e3348092` refused it
+    (`p03_float_seller_uses_our_facilitator`).
+  - A refund comes back within about 7 minutes, not 2: it waits for the next
+    pool anchor. The wallet counts it in your one balance for 8 minutes.
+  - A seller that offers only scheme `confidential` is refused with
+    `confidential_retired`, and nothing is paid. `--play-token-file` is
+    accepted and ignored. The `v0b` and `laneb` commands are removed.
+  - The wallet spends the oldest account that pays, so fresh change is not
+    tied to your next payment.
+  - The wallet reads the faster pool anchors (one about every 30 s) that a
+    coming upgrade of the pool program adds. Until that upgrade, nothing
+    changes: an account waits for the next 5-minute anchor.
+
 ## 2026-10-11
 
 - `e3348092` (current): on npm as `shinjuku-shielded@0.3.6`. Same pool

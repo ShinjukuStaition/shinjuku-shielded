@@ -9,7 +9,7 @@ public files only.
 |---|---|---|
 | Standard x402 `exact`, Solana USDC, on your current facilitator (Coinbase CDP, PayAI, or any other) | Yes, through float pay. You change nothing. | The buyer's wallet. The chain shows a Shinjuku float pocket paying you. |
 | `shielded-exact` | **Not public yet.** The seller package is not in the wallet file and not on npm. Today it needs our private source repository. | The payer and the amount. |
-| Standard `exact` that points at our facilitator, with no `shielded-exact` offer | No. The current wallet refuses it (`p03_float_seller_uses_our_facilitator`). Keep `exact` on another facilitator, or also offer `shielded-exact`. | |
+| Standard x402 `exact`, Solana USDC, pointed at our facilitator (`https://shinjukustaition.com/api/x402`) | Yes, through float pay, with wallet release `488372b4` (npm 0.3.7) or later. Older wallets refuse it (`p03_float_seller_uses_our_facilitator`). | The buyer's wallet. The chain shows a Shinjuku float pocket paying you. |
 | `confidential` (Lane B, hidden amounts) | **Retired.** The V0b vault that buyers paid from was closed on chain on 2026-10-11. | |
 
 ## A standard `exact` seller: float pay
@@ -30,7 +30,9 @@ float pocket: `largestAtomic` in
 `GET https://pay.shinjukustaition.com/api/x402/float/config` (3 USDC on
 2026-10-11). A buyer's wallet refuses a higher price before it pays. On
 2026-10-11 float pay paid two stock `@x402/express` sellers on the PayAI
-facilitator, 0.10 and 1.50 USDC: see [proof.md](proof.md).
+facilitator, 0.10 and 1.50 USDC, and a stock seller on our own
+facilitator, 0.01 USDC twice: see [proof.md](proof.md). On our own
+facilitator, we also pay the network fee of the transfer to you.
 
 ### What you see, and what we see
 
