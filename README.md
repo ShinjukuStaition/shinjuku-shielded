@@ -95,6 +95,10 @@ and no wallet source code.
   2026-10-11 (wallet release `08a4b56f` and later). The pool takes an anchor
   about every 30 s when it grew. In our test, 12 of 12 new accounts could pay
   within 45 s (median 18 s).
+- Pool moves: live from wallet release `701809bd` (npm `shinjuku-shielded@0.3.9`). When we open a new
+  pool, the old pool keeps serving until it is empty, and `move` moves your
+  whole balance to the new pool privately: you pay our float in the old pool, and the float pays you
+  in the new pool. Nothing goes through a public account.
 - Per-user pockets: replaced by float pay. The wallet fills no new pocket
   for a payment. `pocket reshield` returns the USDC of an old pocket to your
   shielded balance.
@@ -159,6 +163,7 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-11 | `19542942` (no longer served) | `195429425616ad43e2e4bbb61e31da7b25bd74b30301b28ae4f4aa18a08250b1` | 10,818,483 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
 | 2026-10-11 | `394d020a` (no longer served) | `394d020a4183ea7ff50282001e5f37cd5d5602822ef468df72569a0c3292061e` | 10,819,973 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
 | 2026-10-11 | [`08a4b56f`](https://shinjukustaition.com/wallet/08a4b56f/shinjuku-wallet.mjs) | `08a4b56f6452268ffdd513e67326de8782b53dcec16ba88adaddf16793581206` | 10,822,047 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
+| 2026-10-12 | [`701809bd`](https://shinjukustaition.com/wallet/701809bd/shinjuku-wallet.mjs) | `701809bdf80ea16a9d16105f067998029d2a0f03d69b885720a08d806eae30d4` | 10,943,907 | [`47678912`](https://shinjukustaition.com/proof-tools/47678912/SHA256SUMS) | `47678912949d7da8b705c399edf03d2367465f6eb581b00a059356373baed28e` | 26 (144,322,174 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
