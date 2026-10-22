@@ -46,7 +46,7 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   and hides.
 - [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
 - [Changelog](CHANGELOG.md): what changed in each wallet release up to
-  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.69:
+  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.70:
   the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
 - [Shinjuku Shielded MCP](https://github.com/ShinjukuStaition/shinjuku-mcp):
   give your agent the wallet as tools.
@@ -86,10 +86,10 @@ and no wallet source code.
 
 ## Status
 
-- Current wallet release: `c6cbe0a6`, npm `shinjuku-shielded@0.3.69`
-  (2026-10-22). Setup checks the pool history while it downloads, so the
-  first balance after a deposit does not do that check again. Hash: the
-  last row of [Releases](#releases).
+- Current wallet release: `ae568c80`, npm `shinjuku-shielded@0.3.70`
+  (2026-10-22). A new MCP's first payment waits less for its history check:
+  the check uses the payment's own pool read. Hash: the last row of
+  [Releases](#releases).
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
@@ -123,8 +123,8 @@ Our website serves the files and their SHA-256 hashes at
 `https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
 second, separate place for those hashes: each release adds its row here.
 
-The current release is the last row of the table: `c6cbe0a6`, on npm as
-`shinjuku-shielded@0.3.69` (2026-10-22). Use it for a new install. Rows
+The current release is the last row of the table: `ae568c80`, on npm as
+`shinjuku-shielded@0.3.70` (2026-10-22). Use it for a new install. Rows
 marked "no longer served" are gone from the website; the other older rows
 stay for the record. Some short-lived releases served between 2026-10-05 and
 2026-10-07 have no row here. What changed in each release after `08a4b56f`
@@ -233,6 +233,7 @@ is in the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-
 | 2026-10-22 | [`4d9b6de2`](https://shinjukustaition.com/wallet/4d9b6de2/shinjuku-wallet.mjs) | `4d9b6de27c68f9fb53c414d063679fde5a62eb26a2a46f13bebfde9a4d74b042` | 12,186,827 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-22 | [`3d64f9b4`](https://shinjukustaition.com/wallet/3d64f9b4/shinjuku-wallet.mjs) | `3d64f9b47b1139c42d3a2ff22642951710beeb669bf633b934b31419e94cc843` | 12,187,129 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-22 | [`c6cbe0a6`](https://shinjukustaition.com/wallet/c6cbe0a6/shinjuku-wallet.mjs) | `c6cbe0a61037f0a435f7ce448d6ff6fc6a4a97a9b7336fea33c9e7a1e56c11e7` | 12,194,855 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`ae568c80`](https://shinjukustaition.com/wallet/ae568c80/shinjuku-wallet.mjs) | `ae568c800e9c2e6ccaf4cad6958cf133aa07469a93428827e679d3a1be89505f` | 12,197,454 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -246,7 +247,7 @@ from the pinned hash.
 ## Get the wallet
 
 The wallet needs Node.js 22.21 or later (or Node.js 24 or later) and nothing
-else. The current release is `c6cbe0a6`: put it in place of `<sha8>` below.
+else. The current release is `ae568c80`: put it in place of `<sha8>` below.
 
 ### 1. Download
 
