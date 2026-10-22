@@ -46,7 +46,7 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   and hides.
 - [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
 - [Changelog](CHANGELOG.md): what changed in each wallet release up to
-  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.63:
+  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.64:
   the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
 - [Shinjuku Shielded MCP](https://github.com/ShinjukuStaition/shinjuku-mcp):
   give your agent the wallet as tools.
@@ -86,12 +86,10 @@ and no wallet source code.
 
 ## Status
 
-- Current wallet release: `f3c65200`, npm `shinjuku-shielded@0.3.63`
-  (2026-10-22). It changed the setup and host lines to
-  `npx -y --no-audit --no-fund shinjuku-shielded ...` (no wait on npm's audit
-  service), and over Tor it moves a history request with no answer to the
-  next history onion and ends a silent history source after 60 s with a
-  plain error. Hash: the last row of [Releases](#releases).
+- Current wallet release: `f7b2fe09`, npm `shinjuku-shielded@0.3.64`
+  (2026-10-22). Before a payment's proof it checks its saved check of our
+  program from the pool read it already makes, with no extra round trip.
+  Hash: the last row of [Releases](#releases).
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
@@ -125,8 +123,8 @@ Our website serves the files and their SHA-256 hashes at
 `https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
 second, separate place for those hashes: each release adds its row here.
 
-The current release is the last row of the table: `f3c65200`, on npm as
-`shinjuku-shielded@0.3.63` (2026-10-22). Use it for a new install. Rows
+The current release is the last row of the table: `f7b2fe09`, on npm as
+`shinjuku-shielded@0.3.64` (2026-10-22). Use it for a new install. Rows
 marked "no longer served" are gone from the website; the other older rows
 stay for the record. Some short-lived releases served between 2026-10-05 and
 2026-10-07 have no row here. What changed in each release after `08a4b56f`
@@ -229,6 +227,7 @@ is in the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-
 | 2026-10-22 | [`fd8f40cf`](https://shinjukustaition.com/wallet/fd8f40cf/shinjuku-wallet.mjs) | `fd8f40cfc0110953e30d8479bfe751545e04952df8faf03b634073d7fd308c78` | 12,166,389 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-22 | [`d9319f9c`](https://shinjukustaition.com/wallet/d9319f9c/shinjuku-wallet.mjs) | `d9319f9cc0d4e5deebfa15e1ac35bee0bc4f4ffb95cd4f58e400ee322ac11076` | 12,167,009 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-22 | [`f3c65200`](https://shinjukustaition.com/wallet/f3c65200/shinjuku-wallet.mjs) | `f3c652001435e22d3e54232fe742166dd8dd5ae183b92c1a24274c7a52ed137c` | 12,174,893 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`f7b2fe09`](https://shinjukustaition.com/wallet/f7b2fe09/shinjuku-wallet.mjs) | `f7b2fe093da4904a611ef95fb52e7888ad1f23b2f41681474d1bd9bef75a71f8` | 12,179,295 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -242,7 +241,7 @@ from the pinned hash.
 ## Get the wallet
 
 The wallet needs Node.js 22.21 or later (or Node.js 24 or later) and nothing
-else. The current release is `f3c65200`: put it in place of `<sha8>` below.
+else. The current release is `f7b2fe09`: put it in place of `<sha8>` below.
 
 ### 1. Download
 
