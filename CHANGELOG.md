@@ -5,9 +5,13 @@ the first 8 hex characters of the file's SHA-256. The full hashes are in the
 Releases table of the [README](README.md). Each release keeps everything in
 the release before it.
 
+This file stops at `08a4b56f` (npm 0.3.8). Every later release, to the
+current `f3c65200` (npm 0.3.63, 2026-10-22), is in the
+[shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
+
 ## 2026-10-11 (pool program upgrade)
 
-- `08a4b56f` (current): on npm as `shinjuku-shielded@0.3.8`. Same pool
+- `08a4b56f`: on npm as `shinjuku-shielded@0.3.8`. Same pool
   (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`), new proof tools
   (`47678912`). Update now: the pool program was upgraded on 2026-10-11, and
   `488372b4` and earlier pin the old program and cannot pay. Run
@@ -52,7 +56,7 @@ the release before it.
 
 ## 2026-10-11
 
-- `e3348092` (current): on npm as `shinjuku-shielded@0.3.6`. Same pool
+- `e3348092`: on npm as `shinjuku-shielded@0.3.6`. Same pool
   (`45mhosfA2MuygZWeqYRVcEZX2Q3gA8KR8FwP6AZkK1zR`) and same proof tools
   (`ad860e62`).
   - Float pay. A seller that takes only standard x402 `exact` (Coinbase

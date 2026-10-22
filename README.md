@@ -45,7 +45,9 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
 - [Proof](docs/proof.md): live mainnet transactions, and what each one shows
   and hides.
 - [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
-- [Changelog](CHANGELOG.md): what changed in each wallet release.
+- [Changelog](CHANGELOG.md): what changed in each wallet release up to
+  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.63:
+  the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
 - [Shinjuku Shielded MCP](https://github.com/ShinjukuStaition/shinjuku-mcp):
   give your agent the wallet as tools.
 
@@ -71,8 +73,8 @@ curl -fsS https://pay.shinjukustaition.com/api/x402/float/config
 ```
 
 `feeAtomic` is the fee and `largestAtomic` is the largest price, in atomic
-USDC (1000000 = 1 USDC). On 2026-10-11 they were `1000` (0.001 USDC) and
-`3000000` (3 USDC). A higher price is refused before anything is paid
+USDC (1000000 = 1 USDC). On 2026-10-22 they were `1000` (0.001 USDC) and
+`10000000` (10 USDC). A higher price is refused before anything is paid
 (`p03_float_price_above_capacity`).
 
 The 3D market game [Shinjuku Undermarket](https://shinjukustaition.com) is
@@ -84,6 +86,12 @@ and no wallet source code.
 
 ## Status
 
+- Current wallet release: `f3c65200`, npm `shinjuku-shielded@0.3.63`
+  (2026-10-22). It changed the setup and host lines to
+  `npx -y --no-audit --no-fund shinjuku-shielded ...` (no wait on npm's audit
+  service), and over Tor it moves a history request with no answer to the
+  next history onion and ends a silent history source after 60 s with a
+  plain error. Hash: the last row of [Releases](#releases).
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
@@ -117,9 +125,12 @@ Our website serves the files and their SHA-256 hashes at
 `https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
 second, separate place for those hashes: each release adds its row here.
 
-The website serves only the newest release: use the last row of the table.
-Some short-lived releases served between 2026-10-05 and 2026-10-07 have no row
-here; only the last row is served, and only its hash matters for a new install.
+The current release is the last row of the table: `f3c65200`, on npm as
+`shinjuku-shielded@0.3.63` (2026-10-22). Use it for a new install. Rows
+marked "no longer served" are gone from the website; the other older rows
+stay for the record. Some short-lived releases served between 2026-10-05 and
+2026-10-07 have no row here. What changed in each release after `08a4b56f`
+is in the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
 
 | Released (UTC) | Wallet release | Wallet file SHA-256 | Bytes | Proof tools | SHA-256 of the proof-tools file list | Proof-tools files |
 |---|---|---|---|---|---|---|
@@ -210,14 +221,14 @@ here; only the last row is served, and only its hash matters for a new install.
 | 2026-10-20 | [`667ac38b`](https://shinjukustaition.com/wallet/667ac38b/shinjuku-wallet.mjs) | `667ac38b9b42b60853ea07024e81b1074105b3dbfba4346d61d86ef3aabef1b3` | 11,939,765 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-21 | [`285d2c1d`](https://shinjukustaition.com/wallet/285d2c1d/shinjuku-wallet.mjs) | `285d2c1db3cfd9d8a5df47acc2c70e7e65816539c3f2ad216ede6a16358d762b` | 12,117,554 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-21 | [`70ff655b`](https://shinjukustaition.com/wallet/70ff655b/shinjuku-wallet.mjs) | `70ff655b113c19d39c8594566c77d38fe7d459ea415f66cda1c09919841ad1a9` | 12,128,720 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`f3c65200`](https://shinjukustaition.com/wallet/f3c65200/shinjuku-wallet.mjs) | `f3c652001435e22d3e54232fe742166dd8dd5ae183b92c1a24274c7a52ed137c` | 12,174,893 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`d9319f9c`](https://shinjukustaition.com/wallet/d9319f9c/shinjuku-wallet.mjs) | `d9319f9cc0d4e5deebfa15e1ac35bee0bc4f4ffb95cd4f58e400ee322ac11076` | 12,167,009 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`fd8f40cf`](https://shinjukustaition.com/wallet/fd8f40cf/shinjuku-wallet.mjs) | `fd8f40cfc0110953e30d8479bfe751545e04952df8faf03b634073d7fd308c78` | 12,166,389 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`ad143a47`](https://shinjukustaition.com/wallet/ad143a47/shinjuku-wallet.mjs) | `ad143a47257fa8b5e147ba3f6b662576794b06184abbedce42fd4f74993d9b7e` | 12,161,659 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`a18f4dcc`](https://shinjukustaition.com/wallet/a18f4dcc/shinjuku-wallet.mjs) | `a18f4dcc8553e48c173aa610e7b3632d8edb25dbe317dd1f820e44673dd0fa39` | 12,158,087 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`780f6896`](https://shinjukustaition.com/wallet/780f6896/shinjuku-wallet.mjs) | `780f6896d6051a0d49b5a716d0ed36d9ea1487342f5582b7f2bc1c91280342e7` | 12,157,954 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-22 | [`a5a9b7dd`](https://shinjukustaition.com/wallet/a5a9b7dd/shinjuku-wallet.mjs) | `a5a9b7ddd7aa96aa7feb6470868cd662c20f0f412df665093e768c07c4cda23c` | 12,153,017 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-21 | [`e18d1d95`](https://shinjukustaition.com/wallet/e18d1d95/shinjuku-wallet.mjs) | `e18d1d9537ea063f2a28f88b4db41a1b93067c5d5aa4f300daaddf80d8544074` | 12,133,623 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`a5a9b7dd`](https://shinjukustaition.com/wallet/a5a9b7dd/shinjuku-wallet.mjs) | `a5a9b7ddd7aa96aa7feb6470868cd662c20f0f412df665093e768c07c4cda23c` | 12,153,017 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`780f6896`](https://shinjukustaition.com/wallet/780f6896/shinjuku-wallet.mjs) | `780f6896d6051a0d49b5a716d0ed36d9ea1487342f5582b7f2bc1c91280342e7` | 12,157,954 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`a18f4dcc`](https://shinjukustaition.com/wallet/a18f4dcc/shinjuku-wallet.mjs) | `a18f4dcc8553e48c173aa610e7b3632d8edb25dbe317dd1f820e44673dd0fa39` | 12,158,087 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`ad143a47`](https://shinjukustaition.com/wallet/ad143a47/shinjuku-wallet.mjs) | `ad143a47257fa8b5e147ba3f6b662576794b06184abbedce42fd4f74993d9b7e` | 12,161,659 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`fd8f40cf`](https://shinjukustaition.com/wallet/fd8f40cf/shinjuku-wallet.mjs) | `fd8f40cfc0110953e30d8479bfe751545e04952df8faf03b634073d7fd308c78` | 12,166,389 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`d9319f9c`](https://shinjukustaition.com/wallet/d9319f9c/shinjuku-wallet.mjs) | `d9319f9cc0d4e5deebfa15e1ac35bee0bc4f4ffb95cd4f58e400ee322ac11076` | 12,167,009 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-22 | [`f3c65200`](https://shinjukustaition.com/wallet/f3c65200/shinjuku-wallet.mjs) | `f3c652001435e22d3e54232fe742166dd8dd5ae183b92c1a24274c7a52ed137c` | 12,174,893 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -230,7 +241,8 @@ from the pinned hash.
 
 ## Get the wallet
 
-The wallet needs Node.js 22 or later and nothing else.
+The wallet needs Node.js 22.21 or later (or Node.js 24 or later) and nothing
+else. The current release is `f3c65200`: put it in place of `<sha8>` below.
 
 ### 1. Download
 
@@ -299,8 +311,8 @@ the proof tools (next section).
 `add-funds`, `deposit`, `recover`, `balance --refresh`, `pay`, `buy-item`,
 `unshield`, `merge`, and `pocket reshield` need the proof tools of the
 facilitator that you use: two manifests, the facilitator's public profile,
-Linux x86-64 provers, and the signed proving parameters (26 files, about
-144 MB).
+Linux x86-64 provers, and the signed proving parameters (30 files, about
+191 MB, for proof tools `a9af32df`).
 
 The provers are Linux programs.
 
@@ -337,7 +349,7 @@ The full guide is the wallet's own help. The steps below follow it.
 
 ### What you need
 
-- Node.js 22 or later. (The two `privacy-cash` commands need Node.js 24 and
+- Node.js 22.21 or later, or Node.js 24 or later. (The two `privacy-cash` commands need Node.js 24 and
   the Privacy Cash SDK, which is not part of the wallet file.)
 - The proof tools (previous section).
 - A Solana RPC URL in a private file, `rpc.txt`. With `--tor`, use an RPC
