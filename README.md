@@ -86,8 +86,8 @@ and no wallet source code.
 
 ## Status
 
-- Current wallet release: `98296ff0`, npm `shinjuku-shielded@0.3.80`
-  (2026-10-23). A private send in parts finishes in every agent host.
+- Stable version (pinned 2026-10-23): wallet release `98296ff0`, npm
+  `shinjuku-shielded@0.3.80`. Install that exact version. A private send in parts finishes in every agent host.
   Hash: the last row of [Releases](#releases).
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
@@ -123,7 +123,7 @@ Our website serves the files and their SHA-256 hashes at
 second, separate place for those hashes: each release adds its row here.
 
 The current release is the last row of the table: `98296ff0`, on npm as
-`shinjuku-shielded@0.3.80` (2026-10-23). Use it for a new install. Rows
+`shinjuku-shielded@0.3.80` (2026-10-23), the stable version. Use it for a new install. Rows
 marked "no longer served" are gone from the website; the other older rows
 stay for the record. Some short-lived releases served between 2026-10-05 and
 2026-10-07 have no row here. What changed in each release after `08a4b56f`
