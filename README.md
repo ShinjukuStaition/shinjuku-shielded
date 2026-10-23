@@ -46,7 +46,7 @@ you set. Setup: [ShinjukuStaition/shinjuku-mcp](https://github.com/ShinjukuStait
   and hides.
 - [FAQ](docs/faq.md): custody, cost, networks, Tor, recovery, and audits.
 - [Changelog](CHANGELOG.md): what changed in each wallet release up to
-  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.80:
+  `08a4b56f` (npm 0.3.8). Later releases, to the current npm 0.3.86:
   the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-mcp/blob/main/CHANGELOG.md).
 - [Shinjuku Shielded MCP](https://github.com/ShinjukuStaition/shinjuku-mcp):
   give your agent the wallet as tools.
@@ -86,12 +86,14 @@ and no wallet source code.
 
 ## Status
 
-- Stable version (pinned 2026-10-23): wallet release `98296ff0`, npm
-  `shinjuku-shielded@0.3.80`. Install that exact version. A private send in parts finishes in every agent host.
-  Hash: the `98296ff0` row of [Releases](#releases).
-- Candidate (2026-10-23, not the stable version): wallet release `b650bf06`,
-  npm `shinjuku-shield@0.3.86` under the tag `next`. It adds private AI in
-  the terminal and for agent apps, and the `shinjuku` command.
+- Stable version (pinned 2026-10-23): wallet release `b650bf06`, npm
+  `shinjuku-shielded@0.3.86` (the same files as `shinjuku-shield@0.3.86`; the
+  terminal command is `shinjuku@0.3.86`). Install that exact version. It adds
+  private AI in the terminal and for agent apps, and the `shinjuku` command.
+  Every feature and how to use it: the
+  [0.3.86 release notes](https://github.com/ShinjukuStaition/shinjuku-mcp#release-0386).
+  Hash: the `b650bf06` row of [Releases](#releases).
+- The stable version before it: wallet release `98296ff0` (npm 0.3.80).
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
@@ -125,8 +127,8 @@ Our website serves the files and their SHA-256 hashes at
 `https://shinjukustaition.com/proof-tools/<sha8>/`. This repository is a
 second, separate place for those hashes: each release adds its row here.
 
-The stable version is `98296ff0`, on npm as `shinjuku-shielded@0.3.80`
-(2026-10-23). Use it for a new install. A row marked "candidate" is a newer
+The stable version is `b650bf06`, on npm as `shinjuku-shielded@0.3.86` and
+`shinjuku-shield@0.3.86` (pinned 2026-10-23). Use it for a new install. A row marked "candidate" is a newer
 release served beside the stable version and published on npm under the
 tag `next`, not `latest`; it becomes the stable version only when we say so here. Rows
 marked "no longer served" are gone from the website; the other older rows
@@ -253,7 +255,7 @@ is in the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-
 | 2026-10-23 (candidate, npm `next`) | [`a59aa27b`](https://shinjukustaition.com/wallet/a59aa27b/shinjuku-wallet.mjs) | `a59aa27b98cd1822c4651ed0567cd35b3f03e087818d8e5cfdb71e6320b7ffae` | 12,484,127 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-23 (candidate, npm `next`) | [`b73f57e5`](https://shinjukustaition.com/wallet/b73f57e5/shinjuku-wallet.mjs) | `b73f57e58ae0466a090f5b1728e7852bab48e7d28ad6bb0f0ba9657b6cc681b1` | 12,505,075 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-23 (candidate, npm `next`) | [`654041bc`](https://shinjukustaition.com/wallet/654041bc/shinjuku-wallet.mjs) | `654041bce4139bfb928180cc1a3c1ff05e570d9fc51ddfa718e9d0ef7fbf9095` | 12,513,236 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
-| 2026-10-23 (candidate, npm `next`) | [`b650bf06`](https://shinjukustaition.com/wallet/b650bf06/shinjuku-wallet.mjs) | `b650bf0682830e05207f52bad2ba426ec7f8fa1bbbfdb7e028057865e3d83d24` | 12,522,998 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-23 (stable, pinned) | [`b650bf06`](https://shinjukustaition.com/wallet/b650bf06/shinjuku-wallet.mjs) | `b650bf0682830e05207f52bad2ba426ec7f8fa1bbbfdb7e028057865e3d83d24` | 12,522,998 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
@@ -267,7 +269,7 @@ from the pinned hash.
 ## Get the wallet
 
 The wallet needs Node.js 22.21 or later (or Node.js 24 or later) and nothing
-else. The stable release is `98296ff0`: put it in place of `<sha8>` below.
+else. The stable release is `b650bf06`: put it in place of `<sha8>` below.
 
 ### 1. Download
 
