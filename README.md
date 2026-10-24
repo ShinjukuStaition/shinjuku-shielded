@@ -94,12 +94,13 @@ and no wallet source code.
   [0.3.86 release notes](https://github.com/ShinjukuStaition/shinjuku-mcp#release-0386).
   Hash: the `b650bf06` row of [Releases](#releases).
 - The stable version before it: wallet release `98296ff0` (npm 0.3.80).
-- Candidate (2026-10-24, not the stable version): wallet release `6304f680`, npm
-  `shinjuku-shield@0.3.95` under the tag `next`. It fixes known issues 1 to 7 of 0.3.86,
+- Candidate (2026-10-24, not the stable version): wallet release `4a3321b0`, npm
+  `shinjuku@0.3.96` under the tag `next`. It fixes known issues 1 to 7 of 0.3.86,
   shows a QR code for a deposit, takes any amount from 0.01 USDC in a terminal, keeps
   every tool text short enough for agent apps to read in full, asks "Use Tor?"
   when an agent app sets up the wallet, waits for your answer in the setup box,
-  names your recovery file when setup ends, and says when you confirmed a send.
+  names your recovery file when setup ends, says when you confirmed a send, and
+  writes `shinjuku@0.3.96` in the lines for your agent app.
 - `shielded-exact` payments from the shielded balance: live on mainnet.
 - Float pay to any Solana x402 `exact` endpoint that takes USDC: live on
   mainnet since 2026-10-11 (wallet release `e3348092` and later). On
@@ -271,6 +272,7 @@ is in the [shinjuku-mcp changelog](https://github.com/ShinjukuStaition/shinjuku-
 | 2026-10-24 (candidate, npm `next`) | [`6048ca61`](https://shinjukustaition.com/wallet/6048ca61/shinjuku-wallet.mjs) | `6048ca6123de12e425ab2f3575fa69838eb1ea93dbff3d2facab612e0004bf8a` | 12,704,961 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-24 (candidate, npm `next`) | [`af5b54d5`](https://shinjukustaition.com/wallet/af5b54d5/shinjuku-wallet.mjs) | `af5b54d5bce11c64a002dca7d59c8593767ddefe4b7177b8ef44cdefb27f0030` | 12,706,861 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 | 2026-10-24 (candidate, npm `next`) | [`6304f680`](https://shinjukustaition.com/wallet/6304f680/shinjuku-wallet.mjs) | `6304f68098886ee10121039f4fb06e7b07fc812b608c5595292ffeaad1ff2ea9` | 12,720,423 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
+| 2026-10-24 (candidate, npm `next`) | [`4a3321b0`](https://shinjukustaition.com/wallet/4a3321b0/shinjuku-wallet.mjs) | `4a3321b081e721e8815c614b5e68bb8bf31405cda64ff0b1b9f3b98e62958bab` | 12,723,643 | [`a9af32df`](https://shinjukustaition.com/proof-tools/a9af32df/SHA256SUMS) | `a9af32df6b7ff7e3243bd607b7ff582da5732fa422f28afd9b8bc3e9f0d6c741` | 30 (191,112,305 bytes) |
 
 Beside each wallet file, the website also serves `LICENSE.txt` (the
 copyright notice), `THIRD_PARTY_NOTICES.txt` (the open-source licenses inside
